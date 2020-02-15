@@ -1,0 +1,81 @@
+.app-header {
+    z-index: 1 !important;
+    &.navbar {
+        // background: $bg !important;
+
+        .navbar-brand {
+            width: 220px;
+            background-image: none;
+            padding: 0.9rem 1rem;
+        }
+
+        span.logo-lg b {
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        .navbar-nav {
+            align-items: unset
+        }
+    }
+
+    #nav-link {
+        padding: 16px 10px 17px 10px;
+        display: flex;
+        align-items: center;
+        color: #fff;
+        height: 100%;
+
+        .avatar {
+            .icon {
+                font-size: 23px;
+            }
+        }
+
+        &:hover {
+            background-color: #367fa9;
+        }
+    }
+
+    button.navbar-toggler {
+        &:focus {
+            outline: none
+        }
+
+        .sidebar-toggle {
+            background-color: transparent;
+            background-image: none;
+            padding: 21px 19px 19px 19px;
+            font-family: fontAwesome;
+            color: #fff;
+
+            &:hover {
+                background-color: #367fa9;
+            }
+
+            &:before {
+                content: "\f0c9";
+            }
+        }
+    }
+}
+
+.sidebar-minimized.brand-minimized {
+    .logo-lg {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hidden-xs {
+        display: none
+    }
+}
+
+@media (min-width: 992px) {
+
+    /* LOGO */
+    .brand-minimized .app-header.navbar .navbar-brand {
+        background-image: url(../public/img/logo_login.png) !important;
+    }
+}

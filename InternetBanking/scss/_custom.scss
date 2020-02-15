@@ -1,0 +1,107 @@
+// Here you can add other styles
+.btn {
+  span,
+  i {
+    pointer-events: none;
+    margin-right: 5px;
+  }
+}
+
+.no-mr {
+  margin-right: 0 !important;
+}
+
+.main {
+  position: relative;
+  overflow: hidden;
+}
+
+.main .container-fluid {
+  padding: 10px 10px !important;
+}
+
+.breadcrumb {
+  margin-bottom: 0 !important;
+
+  li {
+    text-transform: uppercase;
+
+    a {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.hidden {
+  height: 0;
+  visibility: hidden;
+}
+
+.table th,
+.table td {
+  padding: 0.25rem;
+}
+
+.card {
+  margin-bottom: 0.5rem;
+
+  .card-body,
+  .card-block {
+    padding: 0.75rem !important;
+  }
+}
+
+.react-bs-table-pagination {
+  margin-top: 10 !important;
+}
+
+.react-bootstrap-table-page-btns-ul {
+  margin-bottom: 0px !important;
+}
+
+.modal-header {
+  padding: 0.5rem !important;
+
+  h4 {
+    font-size: 15px;
+  }
+
+  .close {
+    padding: 0.5rem;
+    margin: -0.5rem 0rem -0.5rem auto;
+  }
+}
+
+.modal-footer {
+  padding: 0.5rem !important;
+}
+
+/*Alert thông báo*/
+.react-confirm-alert-body {
+  padding: 15px !important;
+  h1 {
+    font-size: 22px;
+  }
+  .react-confirm-alert-button-group {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      background: #1985ac;
+    }
+    button:first-child {
+      background: #333 !important;
+    }
+  }
+}
+
+/*Ẩn icon phone input */
+.hide_icon_typenumber::-webkit-outer-spin-button,
+.hide_icon_typenumber::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.hide_icon_typenumber[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
