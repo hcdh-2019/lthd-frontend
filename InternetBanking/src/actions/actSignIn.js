@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 export function onSignIn(values) {
     return (dispatch, getState) => {
         apiSignIn.signIn(values, function (err, response) {
-            // console.log("onSignIn",err, response)
+             //console.log("onSignIn",err, response)
             if (response) {
                 localStorage.setItem('token', response.token);
                 dispatch(_onSignIn(response));
