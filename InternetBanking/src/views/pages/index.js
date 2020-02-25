@@ -8,4 +8,5 @@ module.exports = {
     'ScoreManagement': require('./ScoreManagement/pScoreManagement.js').default,
     'RevenueManagement': require('./RevenueManagement/pRevenueManagement.js').default,
     'RevenueDetailManagement': require('./RevenueManagement/pRevenueDetailManagement.js').default,
+    'TransferMoneySameBank': require('./TransferMoneySameBank/pTransferMoneySameBank.js').default,
 }

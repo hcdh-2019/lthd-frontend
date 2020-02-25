@@ -88,6 +88,14 @@ module.exports = {
             permission: true,
             title: "Quản lý chi tiết thu chi",
             breadcrumb: "Quản lý chi tiết thu chi"
+        },
+        'TransferMoneySameBank': {
+            name: "TransferMoneySameBank",
+            url: '/transfer-money-same-bank',
+            role: 'budget',
+            permission: true,
+            title: "Chuyển tiền cùng ngân hàng",
+            breadcrumb: "Chuyển tiền cùng ngân hàng"
         }
     }
 
