@@ -4,6 +4,7 @@ import { actSignIn } from "../../../actions"
 import { connect } from "react-redux";
 import * as helper from '../../../modules/Helper';
 import { ToastContainer, toast } from 'react-toastify';
+import { ReCaptcha } from 'react-recaptcha-google';
 
 class SignIn extends Component {
   constructor(props) {
@@ -12,10 +13,29 @@ class SignIn extends Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.signIn = this.signIn.bind(this);
+    this.onLoadRecaptcha = this.onLoadRecaptcha.bind(this);
+    this.verifyCallback = this.verifyCallback.bind(this);
     this.state = {
       email: '',
       password: ''
     };
+  }
+  componentDidMount() {
+    if (this.captchaDemo) {
+        console.log("started, just a second...")
+        this.captchaDemo.reset();
+        this.captchaDemo.execute();
+    }
+  }
+  onLoadRecaptcha() {
+    if (this.captchaDemo) {
+        this.captchaDemo.reset();
+        this.captchaDemo.execute();
+    }
+  }
+  verifyCallback(recaptchaToken) {
+    // Here you will get the final recaptchaToken!!!  
+    console.log(recaptchaToken, "<= your recaptcha token")
   }
   handleEmailChange(e) {
     this.setState({ email: e.target.value })
@@ -70,6 +90,18 @@ class SignIn extends Component {
                 <Button color="primary" className="px-3" onClick={this.signIn}><i className="icon-login"></i>Đăng nhập</Button>
               </Col>
             </Row>
+            <ReCaptcha
+                ref={(el) => {this.captchaDemo = el;}}
+                size="invisible"
+                render="explicit"
+                sitekey="6LfFJdwUAAAAAE9H_sYuQQ0nnTmldTJQAdVSjv57"
+                onloadCallback={this.onLoadRecaptcha}
+                verifyCallback={this.verifyCallback}
+            />
+        <code>
+          1. Add <strong>your site key</strong> in the ReCaptcha component. <br/>
+          2. Check <strong>console</strong> to see the token.
+        </code>
           </CardBody>
         </Card>
       </div>
