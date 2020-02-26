@@ -9,4 +9,5 @@ module.exports = {
     'RevenueManagement': require('./RevenueManagement/pRevenueManagement.js').default,
     'RevenueDetailManagement': require('./RevenueManagement/pRevenueDetailManagement.js').default,
     'TransferMoneySameBank': require('./TransferMoneySameBank/pTransferMoneySameBank.js').default,
+    'CustomerManagement': require('./CustomerManagement/pCustomerManagement.js').default,
 }

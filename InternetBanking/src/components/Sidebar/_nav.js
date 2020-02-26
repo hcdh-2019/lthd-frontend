@@ -55,6 +55,12 @@ export default {
       icon: 'icon-home',
       role: helper.getPathHost("TransferMoneySameBank", "role"),
     },
+    {
+      name: helper.getPathHost("CustomerManagement", "title"),
+      url: helper.getPathHost("CustomerManagement", "url"),
+      icon: 'icon-home',
+      role: helper.getPathHost("CustomerManagement", "role"),
+    },
     // {
     //   name: 'Quản lý đoàn đội',
     //   url: '/dashboard',

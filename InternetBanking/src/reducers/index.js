@@ -9,6 +9,7 @@ import Event from './rEvent'
 import Score from './rScore'
 import Revenue from './rRevenue'
 import RevenueDetail from './rRevenueDetail'
+import TransferMoney from './rTransferMoney'
 export default combineReducers({
     Example,
     SignIn,
@@ -19,5 +20,6 @@ export default combineReducers({
     Event,
     Score,
     Revenue,
-    RevenueDetail
+    RevenueDetail,
+    TransferMoney
 })

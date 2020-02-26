@@ -96,6 +96,14 @@ module.exports = {
             permission: true,
             title: "Chuyển tiền cùng ngân hàng",
             breadcrumb: "Chuyển tiền cùng ngân hàng"
+        },
+        'CustomerManagement': {
+            name: "CustomerManagement",
+            url: '/customer-management',
+            role: 'budget',
+            permission: true,
+            title: "Quản lý khách hàng",
+            breadcrumb: "Quản lý khách hàng"
         }
     }
 

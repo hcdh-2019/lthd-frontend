@@ -32,4 +32,5 @@ module.exports = {
     apiScore: require('./apiScore'),
     apiRevenue: require('./apiRevenue'),
     apiRevenueDetail: require('./apiRevenueDetail'),
+    apiTransferMoney: require('./apiTransferMoney'),
 }
