@@ -79,7 +79,7 @@ class CustomerManagement extends Component {
     toggle() {
         this.setState({
             modal: !this.state.modal,
-            title: "Thêm giáo viên",
+            title: "Thêm khách hàng",
             dataChoose: {},
         });
     }
@@ -88,14 +88,14 @@ class CustomerManagement extends Component {
         this.setState({
             modal: !this.state.modal,
             dataChoose: row,
-            title: "Cập nhật giáo viên"
+            title: "Cập nhật khách hàng"
         });
     }
     onClickDeleteData(cell, row, rowIndex) {
         // console.log('dataChoose: ', row.id);
         confirmAlert({
             title: 'Thông báo',
-            message: 'Bạn muốn xóa giáo viên?',
+            message: 'Bạn muốn xóa khách hàng?',
             buttons: [
                 {
                     label: 'No'
