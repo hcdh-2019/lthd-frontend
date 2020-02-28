@@ -2,20 +2,14 @@ import * as type from '../constants'
 import * as handing from '../modules/HandingData'
 // import Config from '../../config/config'
 let defaultState = {}
-const Teacher = (state = defaultState, action) => {
+const Customer = (state = defaultState, action) => {
     switch (action.type) {
-        case type.GET_TEACHER:
+        case type.GET_CUSTOMER:
             var data = handing.getHandingDataSelect2(action.payload.data)
             return {
                 ...state,
-                teacher: action.payload,
-                selectTeacher: data
-            };
-        case type.GET_TEACHER_NOTIN:
-            var data = handing.getHandingDataSelect2(action.payload.data)
-            return {
-                ...state,
-                selectTeacherNotInClass: data
+                customer: action.payload,
+                selectCustomer: data
             };
         default:
             return {
@@ -23,4 +17,4 @@ const Teacher = (state = defaultState, action) => {
             }
     }
 }
-export default Teacher
+export default Customer

@@ -16,7 +16,8 @@ module.exports = {
         'score': ConfigURL.API_URL + '/api/score',
         'revenue': ConfigURL.API_URL + '/api/revenue',
         'revenue_detail': ConfigURL.API_URL + '/api/revenue_detail',
-        'object': ConfigURL.API_URL + '/api/revenue/getListObjectByID'
+        'object': ConfigURL.API_URL + '/api/revenue/getListObjectByID',
+        'customer': ConfigURL.API_URL + '/api/customer'
     },
     urlPath: {
         'SignIn': {

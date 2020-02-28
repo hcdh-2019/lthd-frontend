@@ -27,7 +27,7 @@ import {
 } from 'reactstrap';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import { actTeacher } from "../../actions"
+import { actCustomer } from "../../actions"
 import { connect } from "react-redux";
 import * as helper from '../../modules/Helper';
 import { ToastContainer, toast } from 'react-toastify';
@@ -59,9 +59,9 @@ class ModalCustomer extends React.Component {
         var gender = this.state.gender;
 
         if (this.props.dataChoose && this.props.dataChoose.id) {
-            this.props.updateTeacher({ id: this.props.dataChoose.id, name: name, address: address, phone: phone, gender: gender })
+            this.props.updateCustomer({ id: this.props.dataChoose.id, name: name, address: address, phone: phone, gender: gender })
         } else {
-            this.props.createTeacher({ name: name, address: address, phone: phone, gender: gender })
+            this.props.createCustomer({ name: name, address: address, phone: phone, gender: gender })
         }
         this.setState({
             modal: false,
@@ -173,6 +173,6 @@ class ModalCustomer extends React.Component {
 }
 ModalCustomer = connect((state) => {
     // console.log("state.Teacher",state.Teacher)
-    return { ...state.Teacher }
-}, { ...actTeacher })(ModalCustomer);
+    return { ...state.Customer }
+}, { ...actCustomer })(ModalCustomer);
 export default ModalCustomer;

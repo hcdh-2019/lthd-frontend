@@ -31,7 +31,7 @@ import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import data from '../../../views_template/Tables/DataTable/_data';
 import ModalCustomer from '../../layouts/mSaveCustomer';
 import * as helper from '../../../modules/Helper';
-import { actTeacher } from "../../../actions";
+import { actCustomer } from "../../../actions";
 import { connect } from "react-redux";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -73,7 +73,7 @@ class CustomerManagement extends Component {
         this.onClickDeleteData = this.onClickDeleteData.bind(this);
     }
     componentDidMount() {
-        this.props.getTeacher();
+        this.props.getCustomer();
     }
 
     toggle() {
@@ -102,7 +102,7 @@ class CustomerManagement extends Component {
                 },
                 {
                     label: 'Yes',
-                    onClick: () => this.props.deleteTeacher({ id: row.id })
+                    onClick: () => this.props.deleteCustomer({ id: row.id })
                 }
             ]
         });
@@ -180,6 +180,6 @@ class CustomerManagement extends Component {
     }
 }
 CustomerManagement = connect((state) => {
-    return { ...state.Teacher }
-}, { ...actTeacher })(CustomerManagement);
+    return { ...state.Customer }
+}, { ...actCustomer })(CustomerManagement);
 export default CustomerManagement;

@@ -1,96 +1,81 @@
 import * as type from '../constants'
-import { apiTeacher } from './api'
+import { apiCustomer } from './api'
 import { toast } from 'react-toastify';
 
-// thêm gíao viên
-export function createTeacher(values) {
+// thêm khách hàng
+export function createCustomer(values) {
     return (dispatch, getState) => {
-        apiTeacher.createTeacher(values, function (err, response) {
-            // console.log("createTeacher", response)
+        apiCustomer.createCustomer(values, function (err, response) {
+            // console.log("createCustomer", response)
             if (response) {
                 if(response.status === "success"){
-                    toast.success("Thêm giáo viên thành công!");
+                    toast.success("Thêm khách hàng thành công!");
                 }else{
-                    toast.error("Thêm giáo viên thất bại!");
+                    toast.error("Thêm khách hàng thất bại!");
                 }
-                dispatch(getTeacher());
+                dispatch(getCustomer());
             }
             else
             {
-                toast.error("Thêm giáo viên thất bại!");
+                toast.error("Thêm khách hàng thất bại!");
             }
         })
     }
 }
-//cập nhật giáo viên
-export function updateTeacher(values) {
+//cập nhật khách hàng
+export function updateCustomer(values) {
     return (dispatch, getState) => {
-        apiTeacher.updateTeacher(values, function (err, response) {
-            // console.log("updateTeacher", response)
+        apiCustomer.updateCustomer(values, function (err, response) {
+            // console.log("updateCustomer", response)
             if (response) {
                 if (response.status === "success") {
-                    toast.success("Cập nhật giáo viên thành công!");
+                    toast.success("Cập nhật khách hàng thành công!");
                 } else {
-                    toast.error("Cập nhật giáo viên thất bại!");
+                    toast.error("Cập nhật khách hàng thất bại!");
                 }
-                dispatch(getTeacher());
+                dispatch(getCustomer());
             }
             else {
-                toast.error("Cập nhật giáo viên thất bại!");
+                toast.error("Cập nhật khách hàng thất bại!");
             }
         })
     }
 }
-//xóa giáo viên
-export function deleteTeacher(values) {
+//xóa khách hàng
+export function deleteCustomer(values) {
     return (dispatch, getState) => {
-        apiTeacher.deleteTeacher(values, function (err, response) {
-            // console.log("deleteTeacher", response)
+        apiCustomer.deleteCustomer(values, function (err, response) {
+            // console.log("deleteCustomer", response)
             if (response) {
                 if (response.status === "success") {
-                    toast.success("Xóa giáo viên thành công!");
+                    toast.success("Xóa khách hàng thành công!");
                 } else {
-                    toast.error("Xóa giáo viên thất bại!");
+                    toast.error("Xóa khách hàng thất bại!");
                 }
-                dispatch(getTeacher());
+                dispatch(getCustomer());
             }
             else {
-                toast.error("Xóa giáo viên thất bại!");
+                toast.error("Xóa khách hàng thất bại!");
             }
         })
     }
 }
 
-export function getTeacher(values) {
+export function getCustomer(values) {
     return (dispatch, getState) => {
-        apiTeacher.getTeacher(values, function (err, response) {
-            //  console.log("getTeacher", response)
+        apiCustomer.getCustomer(values, function (err, response) {
+            //  console.log("getCustomer", response)
             if (response) {
-                dispatch(_getTeacher(response));
+                dispatch(_getCustomer(response));
             }
         })
     }
 }
-export function _getTeacher(payload) {
+export function _getCustomer(payload) {
     return {
-        type: type.GET_TEACHER,
+        type: type.GET_CUSTOMER,
         payload
     }
 }
 
-export function getTeacherNotIn(values) {
-    return (dispatch, getState) => {
-        apiTeacher.getTeacherNotIn(values, function (err, response) {
-            //  console.log("getTeacher", response)
-            if (response) {
-                dispatch(_getTeacherNotIn(response));
-            }
-        })
-    }
-}
-export function _getTeacherNotIn(payload) {
-    return {
-        type: type.GET_TEACHER_NOTIN,
-        payload
-    }
-}
+
