@@ -4,8 +4,18 @@ import * as Auth from '../../modules/Auth'
 import * as type from '../../constants'
 
 // console.log("token",localStorage.getItem('token'))
-axios.defaults.headers['Authorization'] = `bearer ${localStorage.getItem('token')}`
+// axios.defaults.headers['Authorization'] = `bearer ${localStorage.getItem('token')}`
+// axios.defaults.headers['Access-Control-Allow-Origin']= '*';
+// axios.defaults.headers['Access-Control-Allow-Methods']= 'POST, GET, OPTIONS, PUT, DELETE';
+// axios.defaults.headers['Access-Control-Allow-Headers']= 'Origin, Content-Type, Accept, Authorization, X-Request-With';
+// axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+// axios.defaults.headers['Access-Control-Allow-Origin'] = `http://ec2-54-173-45-32.compute-1.amazonaws.com`
+// axios.defaults.headers['Access-Control-Allow-Headers'] = `Origin, X-Requested-With, Content-Type, Accept`
+
 axios.interceptors.response.use(response => {
+    // response.header("Access-Control-Allow-Origin", "http://ec2-54-173-45-32.compute-1.amazonaws.com"); // update to match the domain you will make the request from
+    // response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     return response;
 }, error => {
     if (error.response && error.response.status === 401) {

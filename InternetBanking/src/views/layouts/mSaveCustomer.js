@@ -42,8 +42,12 @@ class ModalCustomer extends React.Component {
             gender: "0"
         };
         this.refName = React.createRef();
+        this.refUserName = React.createRef();
+        this.refPassword = React.createRef();
+        this.refNickName = React.createRef();
         this.refAddress = React.createRef();
         this.refPhone = React.createRef();
+        this.refEmail = React.createRef();
         // this.refGenderNam = React.createRef();
         // this.refGenderNu = React.createRef();
 
@@ -54,14 +58,18 @@ class ModalCustomer extends React.Component {
     SaveCustomer(formSubmitEvent) {
         formSubmitEvent.preventDefault();
         var name = this.refName.current.value;
+        var username = this.refUserName.current.value;
+        var password = this.refPassword.current.value;
+        var nickname = this.refNickName.current.value;
         var address = this.refAddress.current.value;
         var phone = this.refPhone.current.value;
+        var email = this.refEmail.current.value;
         var gender = this.state.gender;
 
         if (this.props.dataChoose && this.props.dataChoose.id) {
-            this.props.updateCustomer({ id: this.props.dataChoose.id, name: name, address: address, phone: phone, gender: gender })
+            this.props.updateCustomer({ id: this.props.dataChoose.id, customername: name, username: username, password: password, nickname: nickname, address: address, phone: phone, email: email, gender: gender })
         } else {
-            this.props.createCustomer({ name: name, address: address, phone: phone, gender: gender })
+            this.props.createCustomer({ customername: name, username: username, password: password, nickname: nickname, address: address, phone: phone, email: email, gender: gender })
         }
         this.setState({
             modal: false,
@@ -108,6 +116,51 @@ class ModalCustomer extends React.Component {
                                     <FormGroup>
                                         <Row>
                                             <Col xs="3">
+                                                <Label htmlFor="username">Tên đăng nhập</Label>
+                                            </Col>
+                                            <Col xs="9">
+                                                <input type="text" maxLength="191" ref={this.refUserName} id="username" className="form-control" placeholder="Tên đăng nhập" defaultValue={this.props.dataChoose ? this.props.dataChoose.username : ""} required />
+
+                                            </Col>
+                                        </Row>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs="12">
+                                    <FormGroup>
+                                        <Row>
+                                            <Col xs="3">
+                                                <Label htmlFor="password">Mật khẩu</Label>
+                                            </Col>
+                                            <Col xs="9">
+                                                <input type="text" maxLength="191" ref={this.refPassword} id="password" className="form-control" placeholder="Mật khẩu" defaultValue={this.props.dataChoose ? this.props.dataChoose.password : ""} required />
+
+                                            </Col>
+                                        </Row>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs="12">
+                                    <FormGroup>
+                                        <Row>
+                                            <Col xs="3">
+                                                <Label htmlFor="nickname">Tên nickname</Label>
+                                            </Col>
+                                            <Col xs="9">
+                                                <input type="text" maxLength="191" ref={this.refNickName} id="nickname" className="form-control" placeholder="Tên nick name" defaultValue={this.props.dataChoose ? this.props.dataChoose.nickname : ""} required />
+
+                                            </Col>
+                                        </Row>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs="12">
+                                    <FormGroup>
+                                        <Row>
+                                            <Col xs="3">
                                                 <Label htmlFor="address">Địa chỉ</Label>
                                             </Col>
                                             <Col xs="9">
@@ -126,6 +179,20 @@ class ModalCustomer extends React.Component {
                                             </Col>
                                             <Col xs="9">
                                                 <input type="text" pattern="[0-9]*" minLength="10" maxLength="11" ref={this.refPhone} id="phone" className="form-control" placeholder="SĐT" defaultValue={this.props.dataChoose ? this.props.dataChoose.phone : ""} required />
+                                            </Col>
+                                        </Row>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs="12">
+                                    <FormGroup>
+                                        <Row>
+                                            <Col xs="3">
+                                                <Label htmlFor="email">Email</Label>
+                                            </Col>
+                                            <Col xs="9">
+                                                <input type="text" maxLength="191" ref={this.refEmail} id="email" className="form-control" placeholder="Email" defaultValue={this.props.dataChoose ? this.props.dataChoose.email : ""} required />
                                             </Col>
                                         </Row>
                                     </FormGroup>
@@ -172,7 +239,7 @@ class ModalCustomer extends React.Component {
     }
 }
 ModalCustomer = connect((state) => {
-    // console.log("state.Teacher",state.Teacher)
+    // console.log("state.Customer",state.Customer)
     return { ...state.Customer }
 }, { ...actCustomer })(ModalCustomer);
 export default ModalCustomer;

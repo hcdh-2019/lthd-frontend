@@ -163,11 +163,12 @@ class CustomerManagement extends Component {
                                 <i className="icon-menu"></i>Danh sách khách hàng
                             </CardHeader>
                             <CardBody>
-                                <BootstrapTable data={this.props.teacher ? this.props.teacher.data : []} version="4" bordered={false} striped hover pagination search options={this.options}>
+                                <BootstrapTable data={this.props.customer ? this.props.customer.data : []} version="4" bordered={false} striped hover pagination search options={this.options}>
                                     <TableHeaderColumn isKey dataField="id" dataSort dataAlign='center'>Mã khách hàng</TableHeaderColumn>
                                     <TableHeaderColumn dataField="name" dataSort dataAlign='center'>Họ tên</TableHeaderColumn>
                                     <TableHeaderColumn dataField="address" width='500px' dataAlign='center'>Địa chỉ</TableHeaderColumn>
                                     <TableHeaderColumn dataField="phone" dataSort dataAlign='center'>Số điện thoại</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="email" dataSort dataAlign='center'>Email</TableHeaderColumn>
                                     <TableHeaderColumn dataField="gender" dataFormat={enumFormatter} formatExtraData={isGender} dataSort dataAlign='center'>Giới tính</TableHeaderColumn>
                                     <TableHeaderColumn dataField='button' dataFormat={this.cellButton} width='80px' dataAlign='center'>Control</TableHeaderColumn>
                                 </BootstrapTable>
