@@ -73,7 +73,7 @@ class CustomerManagement extends Component {
         this.onClickDeleteData = this.onClickDeleteData.bind(this);
     }
     componentDidMount() {
-        this.props.getCustomer();
+        this.props.getCustomerByID({id:9});
     }
 
     toggle() {
@@ -139,8 +139,8 @@ class CustomerManagement extends Component {
                                 <Row>
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Số tài khoản</Label>
-                                            <Input type="text" placeholder="Số tài khoản" />
+                                            <Label htmlFor="name">Số điện thoại</Label>
+                                            <Input type="text" placeholder="Số điện thoại" />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
@@ -163,7 +163,7 @@ class CustomerManagement extends Component {
                                 <i className="icon-menu"></i>Danh sách khách hàng
                             </CardHeader>
                             <CardBody>
-                                <BootstrapTable data={this.props.customer ? this.props.customer.data : []} version="4" bordered={false} striped hover pagination search options={this.options}>
+                                <BootstrapTable data={this.props.customer ? this.props.customer : []} version="4" bordered={false} striped hover pagination search options={this.options}>
                                     <TableHeaderColumn isKey dataField="id" dataSort dataAlign='center'>Mã khách hàng</TableHeaderColumn>
                                     <TableHeaderColumn dataField="name" dataSort dataAlign='center'>Họ tên</TableHeaderColumn>
                                     <TableHeaderColumn dataField="address" width='500px' dataAlign='center'>Địa chỉ</TableHeaderColumn>

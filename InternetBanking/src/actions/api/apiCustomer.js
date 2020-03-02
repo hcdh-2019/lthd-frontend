@@ -4,18 +4,13 @@ import * as helper from '../../modules/Helper.js'
 // Thêm khách hàng
 export function createCustomer(params, callback) {
     console.log("createCustomer",params)
-    console.log("apicustomer",helper.getApiUrl('customer'))
-    
-    debugger
-    axios.post(helper.getApiUrl('customer') + '/create_customer', params).then(function (response) {
+    axios.post(helper.getApiUrl('customer'), params).then(function (response) {
          console.log("response_api",response)
-         debugger
-        if (response.status === 200) {
+        if (response.status === 201 && response.statusText === "CREATED" ) {
             callback(null, response.data)
         }
         else callback(response, null)
     }).catch(function (error) {
-        debugger
         console.log("ERROR:", error)
         callback(error, null)
     })
@@ -49,10 +44,25 @@ export function deleteCustomer(params, callback) {
 }
 //lấy danh sách khách hàng
 export function getCustomer(params, callback) {
-    axios.get(helper.getApiUrl('customer') + '/list_of_register_customer',params).then(function (response) {
+    axios.get(helper.getApiUrl('customer') ,params).then(function (response) {
         // console.log("response",response)
         if (response.status === 200) {
             callback(null, response.data)
+        }
+        else callback(response, null)
+    }).catch(function (error) {
+        console.log("ERROR:", error)
+        callback(error, null)
+    })
+}
+
+//lấy khách hàng theo id
+export function getCustomerByID(params, callback) {
+    // console.log("getCustomerByID params: ", params)
+    axios.get(helper.getApiUrl('customer') + params.id ,params).then(function (response) {
+        // console.log("response",response)
+        if (response.status === 201) {
+            callback(null, response.data.data)
         }
         else callback(response, null)
     }).catch(function (error) {

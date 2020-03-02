@@ -71,6 +71,18 @@ export function getCustomer(values) {
         })
     }
 }
+
+export function getCustomerByID(values) {
+    return (dispatch, getState) => {
+        apiCustomer.getCustomerByID(values, function (err, response) {
+            //  console.log("getCustomer", response)
+            if (response) {
+                dispatch(_getCustomer(response));
+            }
+        })
+    }
+}
+
 export function _getCustomer(payload) {
     return {
         type: type.GET_CUSTOMER,

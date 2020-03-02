@@ -5,11 +5,9 @@ let defaultState = {}
 const Customer = (state = defaultState, action) => {
     switch (action.type) {
         case type.GET_CUSTOMER:
-            var data = handing.getHandingDataSelect2(action.payload.data)
             return {
                 ...state,
-                customer: action.payload,
-                selectCustomer: data
+                customer: [action.payload]
             };
         default:
             return {

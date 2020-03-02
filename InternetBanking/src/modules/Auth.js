@@ -6,7 +6,6 @@ export function rolesMatched(role) {
     return true
   }
   return false;
-  return true;
 }
 
 export function removeUserLogin(isReload) {
