@@ -35,11 +35,12 @@ import { ToastContainer, toast } from 'react-toastify';
 class ModalCustomer extends React.Component {
     constructor(props) {
         super(props);
+        debugger
         //set state
         this.state = {
             modal: false,
             dataChoose: {},
-            gender: "0"
+            gender: 0
         };
         this.refName = React.createRef();
         this.refUserName = React.createRef();
@@ -72,7 +73,7 @@ class ModalCustomer extends React.Component {
         this.setState({
             modal: false,
             dataChoose: {},
-            gender: '0'
+            gender: 0
         });
         this.props.toggle();
     }
@@ -192,16 +193,16 @@ class ModalCustomer extends React.Component {
                                                 <FormGroup check inline>
                                                     <input className="form-check-input" type="radio"
                                                         id="genderNam" name="gender" value="0"
-                                                        // defaultChecked={this.props.dataChoose? this.props.dataChoose.gender === "0" : this.state.gender === "0"}
-                                                        checked={this.state.gender === "0"}
+                                                        defaultChecked={this.props.dataChoose? this.props.dataChoose.gender === 0 : this.state.gender === 0}
+                                                        // checked={this.state.gender === 0}
                                                         onChange={this.handleGenderChange} />
                                                     <Label className="form-check-label" check htmlFor="genderNam">Nam</Label>
                                                 </FormGroup>
                                                 <FormGroup check inline>
                                                     <input className="form-check-input" type="radio"
                                                         id="genderNu" name="gender" value="1"
-                                                        // defaultChecked={this.props.dataChoose?this.props.dataChoose.gender === "1" : this.state.gender === "1"}
-                                                        checked={this.state.gender === "1"}
+                                                        defaultChecked={this.props.dataChoose?this.props.dataChoose.gender === 1 : this.state.gender === 1}
+                                                        // checked={this.state.gender === 1}
                                                         onChange={this.handleGenderChange} />
                                                     <Label className="form-check-label" check htmlFor="genderNu">Nữ</Label>
                                                 </FormGroup>

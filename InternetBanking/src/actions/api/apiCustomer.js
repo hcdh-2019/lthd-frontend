@@ -17,9 +17,9 @@ export function createCustomer(params, callback) {
 }
 //cập nhật khách hàng
 export function updateCustomer(params, callback) {
-    axios.put(helper.getApiUrl('customer') + "/" + params.id, params).then(function (response) {
+    axios.patch(helper.getApiUrl('customer'), params).then(function (response) {
         // console.log("response",response)
-        if (response.status === 200) {
+        if (response.status === 201) {
             callback(null, response.data)
         }
         else callback(response, null)
@@ -31,9 +31,9 @@ export function updateCustomer(params, callback) {
 //xóa khách hàng
 export function deleteCustomer(params, callback) {
     // console.log("deleteCustomer params: ", params)
-    axios.delete(helper.getApiUrl('customer') + "/" + params.id, params).then(function (response) {
+    axios.delete(helper.getApiUrl('customer') + params.id, params).then(function (response) {
         // console.log("response",response)
-        if (response.status === 200) {
+        if (response.status === 201) {
             callback(null, response.data)
         }
         else callback(response, null)
@@ -46,7 +46,7 @@ export function deleteCustomer(params, callback) {
 export function getCustomer(params, callback) {
     axios.get(helper.getApiUrl('customer') ,params).then(function (response) {
         // console.log("response",response)
-        if (response.status === 200) {
+        if (response.status === 201) {
             callback(null, response.data)
         }
         else callback(response, null)

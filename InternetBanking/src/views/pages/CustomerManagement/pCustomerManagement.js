@@ -73,14 +73,15 @@ class CustomerManagement extends Component {
         this.onClickDeleteData = this.onClickDeleteData.bind(this);
     }
     componentDidMount() {
-        this.props.getCustomerByID({id:9});
+        this.props.getCustomerByID({id:1});
     }
 
     toggle() {
+        var row = {gender : 0};
         this.setState({
             modal: !this.state.modal,
             title: "Thêm khách hàng",
-            dataChoose: {},
+            dataChoose: row,
         });
     }
     onClickUpdateData(cell, row, rowIndex) {
