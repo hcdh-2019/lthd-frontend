@@ -35,7 +35,6 @@ import { ToastContainer, toast } from 'react-toastify';
 class ModalCustomer extends React.Component {
     constructor(props) {
         super(props);
-        debugger
         //set state
         this.state = {
             modal: false,

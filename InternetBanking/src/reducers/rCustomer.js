@@ -7,7 +7,7 @@ const Customer = (state = defaultState, action) => {
         case type.GET_CUSTOMER:
             return {
                 ...state,
-                customer: [action.payload]
+                customer: action.payload
             };
         default:
             return {

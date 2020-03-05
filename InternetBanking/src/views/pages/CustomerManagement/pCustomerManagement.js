@@ -73,7 +73,7 @@ class CustomerManagement extends Component {
         this.onClickDeleteData = this.onClickDeleteData.bind(this);
     }
     componentDidMount() {
-        this.props.getCustomerByID({id:1});
+        this.props.getCustomer();
     }
 
     toggle() {
@@ -117,10 +117,10 @@ class CustomerManagement extends Component {
                     this.onClickUpdateData(cell, row, rowIndex)}>
                     <i className="icon-note no-mr"></i>
                 </Button>
-                <Button color="danger" size="sm" onClick={() =>
+                {/* <Button color="danger" size="sm" onClick={() =>
                     this.onClickDeleteData(cell, row, rowIndex)}>
                     <i className="icon-trash no-mr"></i>
-                </Button>
+                </Button> */}
             </ButtonGroup>
         )
     }

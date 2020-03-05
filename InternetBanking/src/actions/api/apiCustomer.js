@@ -46,8 +46,8 @@ export function deleteCustomer(params, callback) {
 export function getCustomer(params, callback) {
     axios.get(helper.getApiUrl('customer') ,params).then(function (response) {
         // console.log("response",response)
-        if (response.status === 201) {
-            callback(null, response.data)
+        if (response.status === 200) {
+            callback(null, response.data.data)
         }
         else callback(response, null)
     }).catch(function (error) {
