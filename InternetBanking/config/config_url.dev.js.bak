@@ -6,5 +6,6 @@ module.exports =  {
     HTTPS_PORT_SERVER: '10000',
     LOG:false,
     API_URL: 'http://localhost:8000',
+    API_URL2: 'http://ec2-54-173-45-32.compute-1.amazonaws.com:5000',
     logLev: 1
 };
