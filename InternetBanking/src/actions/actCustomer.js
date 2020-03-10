@@ -72,17 +72,6 @@ export function getCustomer(values) {
     }
 }
 
-export function getCustomerByID(values) {
-    return (dispatch, getState) => {
-        apiCustomer.getCustomerByID(values, function (err, response) {
-            //  console.log("getCustomer", response)
-            if (response) {
-                dispatch(_getCustomer(response));
-            }
-        })
-    }
-}
-
 export function _getCustomer(payload) {
     return {
         type: type.GET_CUSTOMER,
@@ -90,4 +79,22 @@ export function _getCustomer(payload) {
     }
 }
 
+export function getCustomerByID(values) {
+    return (dispatch, getState) => {
+        apiCustomer.getCustomerByID(values, function (err, response) {
+            //  console.log("getCustomer", response)
+            if (response) {
+                dispatch(_getCustomerByID(response));
+            }
+        })
+    }
+}
+
+
+export function _getCustomerByID(payload) {
+    return {
+        type: type.GET_CUSTOMERBYID,
+        payload
+    }
+}
 

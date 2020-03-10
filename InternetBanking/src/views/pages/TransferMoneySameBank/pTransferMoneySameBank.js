@@ -31,7 +31,7 @@ import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import data from '../../../views_template/Tables/DataTable/_data';
 import ModalTeacher from '../../layouts/mSaveTeacher';
 import * as helper from '../../../modules/Helper';
-import { actTeacher } from "../../../actions";
+import { actCustomer } from "../../../actions";
 import { connect } from "react-redux";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -62,7 +62,7 @@ class TransferMoneySameBank extends Component {
     }
 
     componentDidMount() {
-        this.props.getTeacher();
+        this.props.getCustomerByID({id:1});
     }
 
     onChangeRememberName(value) {
@@ -215,7 +215,7 @@ class TransferMoneySameBank extends Component {
     }
 }
 TransferMoneySameBank = connect((state) => {
-    // console.log("state.Teacher",state.Teacher)
-    return { ...state.Teacher }
-}, { ...actTeacher })(TransferMoneySameBank);
+     console.log("state.Customer",state.Customer)
+    return { ...state.Customer }
+}, { ...actCustomer })(TransferMoneySameBank);
 export default TransferMoneySameBank;
