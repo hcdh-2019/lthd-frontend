@@ -85,7 +85,7 @@ class CustomerManagement extends Component {
         });
     }
     onClickUpdateData(cell, row, rowIndex) {
-        // console.log('dataChoose: ', row);
+        console.log('dataChoose: ', row);
         this.setState({
             modal: !this.state.modal,
             dataChoose: row,
