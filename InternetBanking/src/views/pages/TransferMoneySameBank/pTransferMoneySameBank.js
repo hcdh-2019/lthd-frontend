@@ -26,14 +26,10 @@ import {
     InputGroupAddon,
     InputGroupButton
 } from 'reactstrap';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import data from '../../../views_template/Tables/DataTable/_data';
-import ModalTeacher from '../../layouts/mSaveTeacher';
+
 import * as helper from '../../../modules/Helper';
-import { actCustomer } from "../../../actions";
+import { actCustomer, actTransferMoney } from "../../../actions";
 import { connect } from "react-redux";
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 // React select
 import Select from 'react-select';
@@ -46,7 +42,7 @@ class TransferMoneySameBank extends Component {
         this.state = {
             valueRememberName: "",
             valueMethod: "",
-            selectMethod :[
+            selectMethod: [
                 {
                     id: 0,
                     label: "Người nhận trả phí"
@@ -57,12 +53,17 @@ class TransferMoneySameBank extends Component {
                 }
             ]
         };
+
+        this.refNumberPayment = React.createRef();
+
         this.onChangeRememberName = this.onChangeRememberName.bind(this);
         this.onChangeMethod = this.onChangeMethod.bind(this);
+        this.CheckCustomer = this.CheckCustomer.bind(this);
     }
 
     componentDidMount() {
-        this.props.getCustomerByID({id:1});
+        this.props.getCustomerByID({ id: 1 });
+        this.props.getCustomerStoreByCustomerId({ id: 1 });
     }
 
     onChangeRememberName(value) {
@@ -73,6 +74,11 @@ class TransferMoneySameBank extends Component {
         this.setState({ valueMethod: value });
     }
 
+    CheckCustomer() {
+        var Number = this.refNumberPayment.current.value;
+        this.props.getCustomerByNumberPayment({ id: 2874475617 });
+        console.log("refNumberPayment", Number)
+    }
 
     render() {
         return (
@@ -88,19 +94,19 @@ class TransferMoneySameBank extends Component {
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Số tài khoản</Label>
-                                            <Input type="text"  placeholder="Số tài khoản" disabled />
+                                            <Input type="text" placeholder="Số tài khoản" disabled defaultValue={this.props.customer_one ? this.props.customer_one.number_payment : ""} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Tên tài khoản</Label>
-                                            <Input type="text"  placeholder="Tên tài khoản" disabled />
+                                            <Input type="text" placeholder="Tên tài khoản" disabled defaultValue={this.props.customer_one ? this.props.customer_one.name : ""} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Số dư</Label>
-                                            <Input type="text"  placeholder="Số dư" disabled />
+                                            <Input type="text" placeholder="Số dư" disabled defaultValue={this.props.customer_one ? this.props.customer_one.amount : ""} />
                                         </FormGroup>
                                     </Col>
                                 </Row>
@@ -122,21 +128,26 @@ class TransferMoneySameBank extends Component {
                                                 placeholder="Chọn tên gợi nhớ"
                                                 name="form-field-name2"
                                                 value={this.state.valueRememberName}
-                                                options={this.props.selectTeacher ? this.props.selectTeacher : []}
+                                                options={this.props.selectCustomerStore ? this.props.selectCustomerStore : []}
                                                 onChange={this.onChangeRememberName}
                                             />
                                         </FormGroup>
                                     </Col>
-                                    <Col xs="6">
+                                    <Col xs="4">
                                         <FormGroup >
                                             <Label htmlFor="name">Số tài khoản</Label>
-                                            <Input type="text" placeholder="Số tài khoản" />
+                                            <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} />
+                                        </FormGroup>
+                                    </Col>
+                                    <Col xs="2">
+                                        <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
+                                            <Button type="button" color="primary" onClick={this.CheckCustomer} style={{ marginTop: "28px", float: "left" }}><i className="icon-search"></i>Kiểm tra</Button>
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup >
                                             <Label htmlFor="name">Tên tài khoản</Label>
-                                            <Input type="text" placeholder="Tên tài khoản" disabled />
+                                            <Input type="text" placeholder="Tên tài khoản" disabled defaultValue={this.props.customer_payment ? this.props.customer_payment.name : ""}/>
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
@@ -215,7 +226,7 @@ class TransferMoneySameBank extends Component {
     }
 }
 TransferMoneySameBank = connect((state) => {
-     console.log("state.Customer",state.Customer)
-    return { ...state.Customer }
-}, { ...actCustomer })(TransferMoneySameBank);
+    console.log("state.Customer", state.Customer, "state.TransferMoney", state.TransferMoney)
+    return { ...state.Customer, ...state.TransferMoney }
+}, { ...actCustomer, ...actTransferMoney })(TransferMoneySameBank);
 export default TransferMoneySameBank;

@@ -12,6 +12,19 @@ export function getHandingDataSelect2(data) {
     return ProcessedData;
 }
 
+export function getHandingDataSelect2OfCustomerStore(data) {
+    var ProcessedData = data.reduce(function (accumulator, currentValue) {
+        return [
+            ...accumulator,
+            {
+                'value': currentValue.customer_store_id ? currentValue.customer_store_id : '',
+                'label': currentValue.customer_store_name ? currentValue.customer_store_name : 'Không xác định'
+            }
+        ];
+    }, [])
+    return ProcessedData;
+}
+
 export function getHandingDataTable(data) {
     var ProcessedData = data.reduce(function (accumulator, currentValue) {
         return [

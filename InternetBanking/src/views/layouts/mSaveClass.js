@@ -187,7 +187,7 @@ class CreateClassManagement extends Component {
 }
 
 CreateClassManagement = connect((state) => {
-    // console.log("state.Class: ", state.Class, " state.Student: ", state.Student, " state.Teacher: ", state.Teacher)
+     console.log("state.Class: ", state.Class, " state.Student: ", state.Student, " state.Teacher: ", state.Teacher)
     return { ...state.Class, ...state.Student, ...state.Teacher }
 }, { ...actClass, ...actStudent, ...actTeacher })(CreateClassManagement);
 export default CreateClassManagement;

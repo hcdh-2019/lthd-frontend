@@ -9,7 +9,7 @@ const Customer = (state = defaultState, action) => {
                 ...state,
                 customer: action.payload
             };
-            case type.GET_CUSTOMERBYID:
+        case type.GET_CUSTOMERBYID:
             return {
                 ...state,
                 customer_one: action.payload

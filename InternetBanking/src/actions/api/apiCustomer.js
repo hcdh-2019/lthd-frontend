@@ -70,16 +70,3 @@ export function getCustomerByID(params, callback) {
         callback(error, null)
     })
 }
-
-// export function getTeacherNotIn(params, callback) {
-//     axios.get(helper.getApiUrl('customer')  + "/getTeacherNotInClass",params).then(function (response) {
-//         // console.log("response",response)
-//         if (response.status === 200) {
-//             callback(null, response.data)
-//         }
-//         else callback(response, null)
-//     }).catch(function (error) {
-//         console.log("ERROR:", error)
-//         callback(error, null)
-//     })
-// }
