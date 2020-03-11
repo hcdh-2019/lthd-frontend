@@ -17,8 +17,9 @@ export function getHandingDataSelect2OfCustomerStore(data) {
         return [
             ...accumulator,
             {
-                'value': currentValue.customer_store_id ? currentValue.customer_store_id : '',
-                'label': currentValue.customer_store_name ? currentValue.customer_store_name : 'Không xác định'
+                'value': currentValue.customer_store_number_payment ? currentValue.customer_store_number_payment : '',
+                'label': currentValue.customer_store_name ? currentValue.customer_store_name : 'Không xác định',
+                'customer_store_id': currentValue.customer_store_id ? currentValue.customer_store_id : ''
             }
         ];
     }, [])

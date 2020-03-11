@@ -26,6 +26,8 @@ export function getCustomerByNumberPayment(values) {
             //  console.log("getCustomerByNumberPayment", response)
             if (response) {
                 dispatch(_getCustomerByNumberPayment(response));
+            }else{
+                toast.error("Số tài khoản không chính xác.");
             }
         })
     }

@@ -18,8 +18,8 @@ export function getCustomerStoreByCustomerId(params, callback) {
 //lấy thông tin khách hàng theo số tài khoản
 export function getCustomerByNumberPayment(params, callback) {
     axios.get(helper.getApiUrl('customer') + "number_payment/" + params.id, params).then(function (response) {
-        // console.log("response",response)
-        if (response.data.http_status_response === 200) {
+        // console.log("response1",response)
+        if (response.data.status === "success") {
             callback(null, response.data)
         }
         else callback(response, null)

@@ -68,6 +68,7 @@ class TransferMoneySameBank extends Component {
 
     onChangeRememberName(value) {
         this.setState({ valueRememberName: value });
+        console.log("valueRememberName", this.state.valueRememberName)
     }
 
     onChangeMethod(value) {
@@ -76,7 +77,7 @@ class TransferMoneySameBank extends Component {
 
     CheckCustomer() {
         var Number = this.refNumberPayment.current.value;
-        this.props.getCustomerByNumberPayment({ id: 2874475617 });
+        this.props.getCustomerByNumberPayment({ id: Number });
         console.log("refNumberPayment", Number)
     }
 
@@ -136,7 +137,7 @@ class TransferMoneySameBank extends Component {
                                     <Col xs="4">
                                         <FormGroup >
                                             <Label htmlFor="name">Số tài khoản</Label>
-                                            <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} />
+                                            <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} defaultValue={this.state.valueRememberName != "" ? this.state.valueRememberName.value : ""} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="2">
