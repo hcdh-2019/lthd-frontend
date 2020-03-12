@@ -34,6 +34,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 // React select
 import Select from 'react-select';
 import '../../../../scss/vendors/react-select/react-select.scss';
+import { toast, ToastContainer } from 'react-toastify';
 
 class TransferMoneySameBank extends Component {
     constructor(props) {
@@ -42,6 +43,7 @@ class TransferMoneySameBank extends Component {
         this.state = {
             valueRememberName: "",
             valueMethod: "",
+            chkRememberName: false,
             selectMethod: [
                 {
                     id: 0,
@@ -55,10 +57,14 @@ class TransferMoneySameBank extends Component {
         };
 
         this.refNumberPayment = React.createRef();
+        this.refRememberName = React.createRef();
+        this.refChkRememberName = React.createRef();
+        this.refAccountNameReceive = React.createRef();
 
         this.onChangeRememberName = this.onChangeRememberName.bind(this);
         this.onChangeMethod = this.onChangeMethod.bind(this);
         this.CheckCustomer = this.CheckCustomer.bind(this);
+        this.onChangeChkRememberName = this.onChangeChkRememberName.bind(this);
     }
 
     componentDidMount() {
@@ -81,9 +87,32 @@ class TransferMoneySameBank extends Component {
         console.log("refNumberPayment", Number)
     }
 
+    onChangeChkRememberName(value) {
+        console.log("onChangeChkRememberName", value.target.checked)
+        if (value.target.checked) {
+            var name = this.refRememberName.current.value && this.refRememberName.current.value != "" ? this.refRememberName.current.value : this.refAccountNameReceive.current.value
+            console.log("name", name)
+            if (name && name != "") {
+                this.props.SaveCustomerStore({
+                    "customer_id": 1,
+                    "customer_store_id": 2,
+                    "name_store": name
+                })
+            } else {
+                toast.error("Chưa chọn tài khoản gửi!");
+            }
+        }
+
+        this.setState({ chkRememberName: false });
+    }
+
     render() {
         return (
             <div className="TransferMoneySameBank_page">
+                <ToastContainer
+                    autoClose={3000}
+                    position={toast.POSITION.TOP_RIGHT}
+                />
                 <Row>
                     <Col xs="12" sm="12">
                         <Card className="search_box">
@@ -148,7 +177,7 @@ class TransferMoneySameBank extends Component {
                                     <Col xs="6">
                                         <FormGroup >
                                             <Label htmlFor="name">Tên tài khoản</Label>
-                                            <Input type="text" placeholder="Tên tài khoản" disabled defaultValue={this.props.customer_payment ? this.props.customer_payment.name : ""}/>
+                                            <input type="text" className="form-control" ref={this.refAccountNameReceive} placeholder="Tên tài khoản" disabled defaultValue={this.props.customer_payment ? this.props.customer_payment.name : ""} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
@@ -166,7 +195,7 @@ class TransferMoneySameBank extends Component {
                                     <Col xs="6">
                                         <FormGroup >
                                             <Label htmlFor="name">Tên gợi nhớ</Label>
-                                            <Input type="text" placeholder="Tên gợi nhớ" />
+                                            <input className="form-control" ref={this.refRememberName} type="text" placeholder="Tên gợi nhớ" />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
@@ -184,7 +213,7 @@ class TransferMoneySameBank extends Component {
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup check inline >
-                                            <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1" />
+                                            <input ref={this.refChkRememberName} className="form-check-input" type="checkbox" onChange={this.onChangeChkRememberName} defaultValue={this.state.chkRememberName} />
                                             <Label className="form-check-label" check htmlFor="inline-checkbox1">Lưu tên gợi nhớ</Label>
                                         </FormGroup>
                                     </Col>

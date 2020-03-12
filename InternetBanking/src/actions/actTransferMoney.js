@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 export function getCustomerStoreByCustomerId(values) {
     return (dispatch, getState) => {
         apiTransferMoney.getCustomerStoreByCustomerId(values, function (err, response) {
-            //  console.log("getCustomerStoreByCustomerId", response)
+            console.log("getCustomerStoreByCustomerId", response, "params", values)
             if (response) {
                 dispatch(_getCustomerStoreByCustomerId(response));
             }
@@ -26,7 +26,7 @@ export function getCustomerByNumberPayment(values) {
             //  console.log("getCustomerByNumberPayment", response)
             if (response) {
                 dispatch(_getCustomerByNumberPayment(response));
-            }else{
+            } else {
                 toast.error("Số tài khoản không chính xác.");
             }
         })
@@ -37,5 +37,26 @@ export function _getCustomerByNumberPayment(payload) {
     return {
         type: type.GET_CUSTOMERBYPAYMENT,
         payload
+    }
+}
+
+export function SaveCustomerStore(values) {
+    return (dispatch, getState) => {
+        apiTransferMoney.SaveCustomerStore(values, function (err, response) {
+            console.log("SaveCustomerStore", response)
+            if (response) {
+                if (response.status === "success") {
+                    toast.success("Lưu thành công!");
+                } else {
+                    toast.error("Lưu thất bại!");
+                }
+                dispatch(getCustomerStoreByCustomerId({
+                    id: values.customer_id
+                }));
+            }
+            else {
+                toast.error("Lưu thất bại!");
+            }
+        })
     }
 }

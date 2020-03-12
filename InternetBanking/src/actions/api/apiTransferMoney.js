@@ -28,3 +28,18 @@ export function getCustomerByNumberPayment(params, callback) {
         callback(error, null)
     })
 }
+
+// Thêm tên gợi nhớ
+export function SaveCustomerStore(params, callback) {
+    console.log("SaveCustomerStore", params)
+    axios.post(helper.getApiUrl('customer') + "customer_store/", params).then(function (response) {
+        console.log("response_api", response)
+        if (response.status === 201 && response.statusText === "CREATED") {
+            callback(null, response.data)
+        }
+        else callback(response, null)
+    }).catch(function (error) {
+        console.log("ERROR:", error)
+        callback(error, null)
+    })
+}
