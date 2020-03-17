@@ -11,6 +11,7 @@ import Revenue from './rRevenue'
 import RevenueDetail from './rRevenueDetail'
 import TransferMoney from './rTransferMoney'
 import Customer from './rCustomer'
+import ReceiveMoney from './rReceiveMoney'
 export default combineReducers({
     Example,
     SignIn,
@@ -23,5 +24,6 @@ export default combineReducers({
     Revenue,
     RevenueDetail,
     TransferMoney,
-    Customer
+    Customer,
+    ReceiveMoney,
 })

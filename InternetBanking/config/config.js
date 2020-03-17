@@ -17,7 +17,8 @@ module.exports = {
         'revenue': ConfigURL.API_URL + '/api/revenue',
         'revenue_detail': ConfigURL.API_URL + '/api/revenue_detail',
         'object': ConfigURL.API_URL + '/api/revenue/getListObjectByID',
-        'customer': ConfigURL.API_URL2 + '/customer/'
+        'customer': ConfigURL.API_URL2 + '/customer/',
+        'receive': ConfigURL.API_URL2 + '/payment/'
     },
     urlPath: {
         'SignIn': {
@@ -105,6 +106,14 @@ module.exports = {
             permission: true,
             title: "Quản lý khách hàng",
             breadcrumb: "Quản lý khách hàng"
+        },
+        'ReceiveMoneyBankAccount': {
+            name: "ReceiveMoneyBankAccount",
+            url: '/receive-money-bankaccount',
+            role: 'budget',
+            permission: true,
+            title: "Nạp tiền vào tài khoản",
+            breadcrumb: "Nạp tiền vào tài khoản"
         }
     }
 
