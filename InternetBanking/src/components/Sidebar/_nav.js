@@ -61,6 +61,12 @@ export default {
       icon: 'icon-home',
       role: helper.getPathHost("CustomerManagement", "role"),
     },
+    {
+      name: helper.getPathHost("ReceiveMoneyBankAccount", "title"),
+      url: helper.getPathHost("ReceiveMoneyBankAccount", "url"),
+      icon: 'icon-home',
+      role: helper.getPathHost("ReceiveMoneyBankAccount", "role"),
+    },
     // {
     //   name: 'Quản lý đoàn đội',
     //   url: '/dashboard',
