@@ -37,40 +37,28 @@ class ReceiveMoneyBankAccount extends Component {
     constructor(props) {
         super(props);
         document.title = helper.getPathHost("ReceiveMoneyBankAccount", "title")
-        this.options = {
-            sortIndicator: true,
-            hideSizePerPage: true,
-            sizePerPage: 25,
-            paginationSize: 3,
-            hidePageListOnlyOnePage: false,
-            clearSearch: false,
-            alwaysShowAllBtns: true,
-            withFirstAndLast: false,
-            paginationShowsTotal: true,
-            noDataText: 'Không có dữ liệu'
-        }
+        
         this.state = {
             modal: false,
             dataChoose: {},
             title: ""
         };
 
-        this.toggle = this.toggle.bind(this);
-        this.cellButton = this.cellButton.bind(this);
+        this.refNumberPayment = React.createRef();
+        this.refUserName = React.createRef();
+
+        this.checkCustomer = this.checkCustomer.bind(this);
         this.onClickUpdateData = this.onClickUpdateData.bind(this);
-        this.onClickDeleteData = this.onClickDeleteData.bind(this);
     }
     componentDidMount() {
         // this.props.getCustomer();
     }
 
-    toggle() {
-        // var row = {gender : 0};
-        // this.setState({
-        //     modal: !this.state.modal,
-        //     title: "Thêm khách hàng",
-        //     dataChoose: row,
-        // });
+    checkCustomer() {
+        var numberPayment = this.refNumberPayment.current.value;
+        var userName = this.refUserName.current.value;
+        debugger
+        this.props.getCustomerBySTK({ number_payment: numberPayment });
     }
     onClickUpdateData(cell, row, rowIndex) {
         // console.log('dataChoose: ', row);
@@ -80,47 +68,10 @@ class ReceiveMoneyBankAccount extends Component {
         //     title: "Cập nhật khách hàng"
         // });
     }
-    onClickDeleteData(cell, row, rowIndex) {
-        // console.log('dataChoose: ', row.id);
-        // confirmAlert({
-        //     title: 'Thông báo',
-        //     message: 'Bạn muốn xóa khách hàng?',
-        //     buttons: [
-        //         {
-        //             label: 'No'
-        //         },
-        //         {
-        //             label: 'Yes',
-        //             onClick: () => this.props.deleteCustomer({ id: row.id })
-        //         }
-        //     ]
-        // });
-
-    }
-
-    cellButton(cell, row, enumObject, rowIndex) {
-        // return (
-        //     <ButtonGroup>
-        //         <Button color="primary" size="sm" onClick={() =>
-        //             this.onClickUpdateData(cell, row, rowIndex)}>
-        //             <i className="icon-note no-mr"></i>
-        //         </Button>
-        //         {/* <Button color="danger" size="sm" onClick={() =>
-        //             this.onClickDeleteData(cell, row, rowIndex)}>
-        //             <i className="icon-trash no-mr"></i>
-        //         </Button> */}
-        //     </ButtonGroup>
-        // )
-    }
+    
     render() {
         return (
             <div className="ReceiveMoneyBankAccount_page">
-                {/* <ModalCustomer
-                    toggle={this.toggle}
-                    modal={this.state.modal}
-                    dataChoose={this.state.dataChoose}
-                    title={this.state.title}
-                /> */}
                 <Row>
                     <Col xs="12" sm="12">
                         <Card className="search_box">
@@ -128,47 +79,53 @@ class ReceiveMoneyBankAccount extends Component {
                                 <Row>
                                     <Col xs="4">
                                         <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="number_payment">Số tài khoản</Label>
-                                            <Input type="text" placeholder="Số tài khoản" />
+                                            <Label htmlFor="name">Số tài khoản</Label>
+                                            <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} defaultValue={this.props.customer_one ? this.props.customer_one.number_payment : ""} />
                                         </FormGroup>
                                     </Col>
+                                    <Col xs="4">
+                                        <FormGroup style={{ marginBottom: 0 }}>
+                                            <Label htmlFor="name">Tên đăng nhập</Label>
+                                            <input type="text" className="form-control" disabled placeholder="Tên đăng nhập" ref={this.refUserName} defaultValue={this.props.customer_one ? this.props.customer_one.username : ""}/>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col xs="4">
+                                        <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
+                                            <Button type="button" color="primary" onClick={this.checkCustomer} style={{ marginTop: "28px", float: "left" }}><i className="icon-search"></i>Kiểm tra</Button>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>
+                                <Row>
                                     <Col xs="4">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Tên khách hàng</Label>
-                                            <Input type="text" placeholder="Tên khách hàng" />
+                                            <Input type="text" placeholder="Tên khách hàng" disabled defaultValue={this.props.customer_one ? this.props.customer_one.name : ""} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="4">
                                         <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="username">Tên đăng nhập</Label>
-                                            <Input type="text" placeholder="Tên đăng nhập" />
+                                            <Label htmlFor="name">Email</Label>
+                                            <Input type="text" placeholder="Email" disabled defaultValue={this.props.customer_one ? this.props.customer_one.email : ""}/>
                                         </FormGroup>
                                     </Col>
+                                    <Col xs="4">
+                                        <FormGroup style={{ marginBottom: 0 }}>
+                                            <Label htmlFor="name">Số điện thoại</Label>
+                                            <Input type="text" placeholder="Số điện thoại" disabled defaultValue={this.props.customer_one ? this.props.customer_one.phone : ""}/>
+                                        </FormGroup>
+                                    </Col>
+                                    
                                 </Row>
                                 <Row>
-                                    <Col xs="4">
+                                    <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="email">Email</Label>
-                                            <Input type="text" placeholder="Email" />
+                                            <Label htmlFor="name">Số dư </Label>
+                                            <Input type="text" placeholder="Số dư" disabled defaultValue={this.props.customer_one ? this.props.customer_one.amount : ""}/>
                                         </FormGroup>
                                     </Col>
-                                    <Col xs="4">
+                                    <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="phone">Số điện thoại</Label>
-                                            <Input type="text" placeholder="Số điện thoại" />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col xs="4">
-                                        <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="amountpayment">Số dư </Label>
-                                            <Input type="text" placeholder="Số dư" />
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                <Col xs="6">
-                                        <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="amount">Số tiền cần nạp </Label>
+                                            <Label htmlFor="name">Số tiền cần nạp </Label>
                                             <Input type="text" placeholder="Số tiền cần nạp" />
                                         </FormGroup>
                                     </Col>
@@ -176,8 +133,7 @@ class ReceiveMoneyBankAccount extends Component {
                             </CardBody>
                             <CardFooter>
                                 <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
-                                    <Button type="submit" color="primary"><i className="icon-magnifier"></i> Tìm Kiếm</Button>
-                                    <Button type="button" color="warning" onClick={this.toggle}><i className="icon-plus"></i> Nạp tiền</Button>
+                                    <Button type="button" color="warning" onClick={this.checkCustomer}><i className="icon-plus"></i> Nạp tiền</Button>
                                 </FormGroup>
                             </CardFooter>
                         </Card>
@@ -204,6 +160,6 @@ class ReceiveMoneyBankAccount extends Component {
     }
 }
 ReceiveMoneyBankAccount = connect((state) => {
-    return { ...state.Customer }
+    return { ...state.ReceiveMoney }
 }, { ...actReceiveMoney })(ReceiveMoneyBankAccount);
 export default ReceiveMoneyBankAccount;

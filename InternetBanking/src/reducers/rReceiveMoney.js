@@ -4,7 +4,7 @@ import * as handing from '../modules/HandingData'
 let defaultState = {}
 const ReceiveMoney = (state = defaultState, action) => {
     switch (action.type) {
-        case type.GET_CUSTOMERBYID:
+        case type.GET_CUSTOMERBYSTK:
             return {
                 ...state,
                 customer_one: action.payload

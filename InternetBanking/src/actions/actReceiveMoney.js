@@ -22,3 +22,22 @@ export function receiveMoney(values) {
         })
     }
 }
+
+export function getCustomerBySTK(values) {
+    return (dispatch, getState) => {
+        apiReceiveMoney.getCustomerBySTK(values, function (err, response) {
+            //  console.log("getCustomer", response)
+            if (response) {
+                dispatch(_getCustomerBySTK(response));
+            }
+        })
+    }
+}
+
+
+export function _getCustomerBySTK(payload) {
+    return {
+        type: type.GET_CUSTOMERBYSTK,
+        payload
+    }
+}
