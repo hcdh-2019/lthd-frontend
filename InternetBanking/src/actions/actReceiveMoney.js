@@ -13,7 +13,7 @@ export function receiveMoney(values) {
                 }else{
                     toast.error("Nạp tiền thất bại!");
                 }
-                // dispatch(getCustomer());
+                dispatch(getCustomerBySTK({number_payment: values.number_payment_or_user_name}));
             }
             else
             {

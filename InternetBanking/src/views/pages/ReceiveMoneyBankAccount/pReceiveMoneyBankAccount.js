@@ -31,6 +31,7 @@ import { actReceiveMoney } from "../../../actions";
 import { connect } from "react-redux";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 class ReceiveMoneyBankAccount extends Component {
@@ -46,32 +47,31 @@ class ReceiveMoneyBankAccount extends Component {
 
         this.refNumberPayment = React.createRef();
         this.refUserName = React.createRef();
+        this.refAmount = React.createRef();
 
         this.checkCustomer = this.checkCustomer.bind(this);
-        this.onClickUpdateData = this.onClickUpdateData.bind(this);
+        this.onClickReceiveMoney = this.onClickReceiveMoney.bind(this);
     }
-    componentDidMount() {
-        // this.props.getCustomer();
-    }
-
     checkCustomer() {
         var numberPayment = this.refNumberPayment.current.value;
         var userName = this.refUserName.current.value;
-        debugger
         this.props.getCustomerBySTK({ number_payment: numberPayment });
     }
-    onClickUpdateData(cell, row, rowIndex) {
-        // console.log('dataChoose: ', row);
-        // this.setState({
-        //     modal: !this.state.modal,
-        //     dataChoose: row,
-        //     title: "Cập nhật khách hàng"
-        // });
+    onClickReceiveMoney(formSubmitEvent) {
+        formSubmitEvent.preventDefault();
+        var numberPayment = this.refNumberPayment.current.value;
+        var userName = this.refUserName.current.value;
+        var amount = this.refAmount.current.value;
+        this.props.receiveMoney({ number_payment_or_user_name: numberPayment ? numberPayment : userName, amount: parseFloat(amount) });
     }
     
     render() {
         return (
             <div className="ReceiveMoneyBankAccount_page">
+                <ToastContainer
+                    autoClose={3000}
+                    position={toast.POSITION.TOP_RIGHT}
+                />
                 <Row>
                     <Col xs="12" sm="12">
                         <Card className="search_box">
@@ -126,14 +126,14 @@ class ReceiveMoneyBankAccount extends Component {
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Số tiền cần nạp </Label>
-                                            <Input type="text" placeholder="Số tiền cần nạp" />
+                                            <input type="text" className="form-control" placeholder="Số tiền cần nạp" ref={this.refAmount}/>
                                         </FormGroup>
                                     </Col>
                                 </Row>
                             </CardBody>
                             <CardFooter>
                                 <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
-                                    <Button type="button" color="warning" onClick={this.checkCustomer}><i className="icon-plus"></i> Nạp tiền</Button>
+                                    <Button type="button" color="warning" onClick={this.onClickReceiveMoney}><i className="icon-plus"></i> Nạp tiền</Button>
                                 </FormGroup>
                             </CardFooter>
                         </Card>
