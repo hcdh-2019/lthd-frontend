@@ -42,29 +42,37 @@ class TransferMoneySameBank extends Component {
         document.title = helper.getPathHost("TransferMoneySameBank", "title")
         this.state = {
             valueRememberName: "",
-            valueMethod: "",
+            valueMethod: {
+                id: "0",
+                label: "Người gửi trả phí"
+            },
             chkRememberName: false,
             selectMethod: [
                 {
-                    id: 0,
-                    label: "Người nhận trả phí"
+                    id: "0",
+                    label: "Người gửi trả phí"
                 },
                 {
-                    id: 1,
-                    label: "Người gửi trả phí"
+                    id: "1",
+                    label: "Người nhận trả phí"
                 }
             ]
         };
+
 
         this.refNumberPayment = React.createRef();
         this.refRememberName = React.createRef();
         this.refChkRememberName = React.createRef();
         this.refAccountNameReceive = React.createRef();
+        this.refMoneyReceive = React.createRef();
+        this.refContentReceive = React.createRef();
 
         this.onChangeRememberName = this.onChangeRememberName.bind(this);
         this.onChangeMethod = this.onChangeMethod.bind(this);
         this.CheckCustomer = this.CheckCustomer.bind(this);
         this.onChangeChkRememberName = this.onChangeChkRememberName.bind(this);
+        this.TransactionMoney = this.TransactionMoney.bind(this);
+
     }
 
     componentDidMount() {
@@ -74,17 +82,30 @@ class TransferMoneySameBank extends Component {
 
     onChangeRememberName(value) {
         this.setState({ valueRememberName: value });
-        console.log("valueRememberName", this.state.valueRememberName)
+        console.log("valueRememberName", this.state.valueRememberName, "value",value)
+
+        if(value && value != ""){
+            this.refNumberPayment.current.value = value.value;
+            this.refNumberPayment.current.disabled = "disabled";
+        }else{
+            this.refNumberPayment.current.disabled = "";
+            this.refNumberPayment.current.value = "";
+        }
     }
 
     onChangeMethod(value) {
         this.setState({ valueMethod: value });
+        console.log("valueMethod", this.state.valueMethod)
     }
 
     CheckCustomer() {
-        var Number = this.refNumberPayment.current.value;
-        this.props.getCustomerByNumberPayment({ id: Number });
-        console.log("refNumberPayment", Number)
+        if (this.refNumberPayment.current.value != "") {
+            var Number = this.refNumberPayment.current.value;
+            this.props.getCustomerByNumberPayment({ id: Number });
+            console.log("refNumberPayment", Number)
+        } else {
+            toast.error("Vui lòng chọn tên gợi nhớ hoặc nhập số tài khoản.");
+        }
     }
 
     onChangeChkRememberName(value) {
@@ -92,18 +113,43 @@ class TransferMoneySameBank extends Component {
         if (value.target.checked) {
             var name = this.refRememberName.current.value && this.refRememberName.current.value != "" ? this.refRememberName.current.value : this.refAccountNameReceive.current.value
             console.log("name", name)
-            if (name && name != "") {
+            if (name && name != "" && this.props.customer_payment && this.props.customer_payment.customer_id) {
                 this.props.SaveCustomerStore({
                     "customer_id": 1,
-                    "customer_store_id": 2,
+                    "customer_store_id": this.props.customer_payment.customer_id,
                     "name_store": name
                 })
             } else {
-                toast.error("Chưa chọn tài khoản gửi!");
+                toast.error("Thông tin người nhận chưa xác thực. Vui lòng nhấn kiểm tra.");
             }
         }
 
         this.setState({ chkRememberName: false });
+    }
+
+    TransactionMoney() {
+        console.log("this.props.customer_payment", this.props.customer_payment)
+        if (this.props.customer_payment && this.props.customer_payment.customer_id) {
+            if (this.refMoneyReceive.current.value != "" && this.refContentReceive.current.value != "") {
+                var params = {
+                    "customer_id": 4,
+                    "customer_receive_id": this.props.customer_payment.customer_id,
+                    "amount": this.refMoneyReceive.current.value,
+                    "content": this.refContentReceive.current.value
+                }
+                console.log("TransactionMoney params", params)
+
+                this.refNumberPayment.current.disabled = "disabled";
+                this.refMoneyReceive.current.disabled = "disabled";
+                this.refContentReceive.current.disabled = "disabled";
+                this.refRememberName.current.disabled = "disabled";
+                this.refRememberName.current.disabled = "disabled";
+            } else {
+                toast.error("Vui lòng nhập đầy đủ thông tin.");
+            }
+        } else {
+            toast.error("Thông tin người nhận chưa xác thực. Vui lòng nhấn kiểm tra.");
+        }
     }
 
     render() {
@@ -166,7 +212,7 @@ class TransferMoneySameBank extends Component {
                                     <Col xs="4">
                                         <FormGroup >
                                             <Label htmlFor="name">Số tài khoản</Label>
-                                            <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} defaultValue={this.state.valueRememberName != "" ? this.state.valueRememberName.value : ""} />
+                                            <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} defaultValue={this.state.valueRememberName ? this.state.valueRememberName.value : ""} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="2">
@@ -183,13 +229,13 @@ class TransferMoneySameBank extends Component {
                                     <Col xs="6">
                                         <FormGroup >
                                             <Label htmlFor="name">Số tiền chuyển</Label>
-                                            <Input type="text" placeholder="Số tiền chuyển" />
+                                            <input type="text" className="form-control" placeholder="Số tiền chuyển" ref={this.refMoneyReceive} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup>
                                             <Label htmlFor="name">Nội dung</Label>
-                                            <Input type="text" placeholder="Nội dung" />
+                                            <input type="text" className="form-control" placeholder="Nội dung" ref={this.refContentReceive} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
@@ -222,7 +268,7 @@ class TransferMoneySameBank extends Component {
                             </CardBody>
                             <CardFooter>
                                 <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
-                                    <Button type="submit" color="primary"><i className="icon-plus"></i>Chuyển khoản</Button>
+                                    <Button  type="button" color="primary" onClick={this.TransactionMoney}><i className="icon-plus"></i>Chuyển khoản</Button>
                                 </FormGroup>
                             </CardFooter>
                         </Card>
