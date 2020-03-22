@@ -165,11 +165,12 @@ class CustomerManagement extends Component {
                             </CardHeader>
                             <CardBody>
                                 <BootstrapTable data={this.props.customer ? this.props.customer : []} version="4" bordered={false} striped hover pagination search options={this.options}>
-                                    <TableHeaderColumn isKey dataField="id" dataSort dataAlign='center'>Mã khách hàng</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="name" dataSort dataAlign='center'>Họ tên</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="address" width='500px' dataAlign='center'>Địa chỉ</TableHeaderColumn>
+                                    <TableHeaderColumn isKey dataField="id" width='80px' dataSort dataAlign='center'>Mã KH</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="number_payment" width='150px' dataSort dataAlign='center'>Số tài khoản</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="name" width='200px' dataSort dataAlign='center'>Họ tên</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="address" width='200px' dataAlign='center'>Địa chỉ</TableHeaderColumn>
                                     <TableHeaderColumn dataField="phone" dataSort dataAlign='center'>Số điện thoại</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="email" dataSort dataAlign='center'>Email</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="email" width='200px' dataSort dataAlign='center'>Email</TableHeaderColumn>
                                     <TableHeaderColumn dataField="gender" dataFormat={enumFormatter} formatExtraData={isGender} dataSort dataAlign='center'>Giới tính</TableHeaderColumn>
                                     <TableHeaderColumn dataField='button' dataFormat={this.cellButton} width='80px' dataAlign='center'>Control</TableHeaderColumn>
                                 </BootstrapTable>
