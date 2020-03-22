@@ -3,7 +3,7 @@ import * as helper from '../../modules/Helper.js'
 
 // Thêm khách hàng
 export function createCustomer(params, callback) {
-    console.log("createCustomer",params)
+    console.log("createCustomer",JSON.stringify(params))
     axios.post(helper.getApiUrl('customer'), params).then(function (response) {
          console.log("response_api",response)
         if (response.status === 201 && response.statusText === "CREATED" ) {

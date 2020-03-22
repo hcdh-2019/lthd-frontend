@@ -60,3 +60,47 @@ export function SaveCustomerStore(values) {
         })
     }
 }
+
+
+export function TransactionMoney(values) {
+    return (dispatch, getState) => {
+        apiTransferMoney.TransactionMoney(values, function (err, response) {
+            console.log("TransactionMoney", response)
+            if (response) {
+                if (response.status === "success") {
+                    toast.success("Lưu thành công!");
+                } else {
+                    toast.error("Lưu thất bại!");
+                }
+                // dispatch(getCustomerStoreByCustomerId({
+                //     id: values.customer_id
+                // }));
+            }
+            else {
+                toast.error("Lưu thất bại!");
+            }
+        })
+    }
+}
+
+
+export function ConfirmOTP(values) {
+    return (dispatch, getState) => {
+        apiTransferMoney.ConfirmOTP(values, function (err, response) {
+            console.log("ConfirmOTP", response)
+            if (response) {
+                if (response.status === "success") {
+                    toast.success("Lưu thành công!");
+                } else {
+                    toast.error("Lưu thất bại!");
+                }
+                // dispatch(getCustomerStoreByCustomerId({
+                //     id: values.customer_id
+                // }));
+            }
+            else {
+                toast.error("Lưu thất bại!");
+            }
+        })
+    }
+}
