@@ -65,9 +65,9 @@ class ModalCustomer extends React.Component {
         var gender = this.state.gender;
 
         if (this.props.dataChoose && this.props.dataChoose.id) {
-            this.props.updateCustomer({ id: this.props.dataChoose.id, customername: name, username: username, address: address, phone: phone, email: email, gender: gender }) //, nickname: nickname
+            this.props.updateCustomer({ id: this.props.dataChoose.id, customername: name, username: username, nickname: "", address: address, phone: phone, email: email, gender: gender }) //, nickname: nickname
         } else {
-            this.props.createCustomer({ customername: name, username: username, address: address, phone: phone, email: email, gender: gender })
+            this.props.createCustomer({ customername: name, username: username, nickname: "", address: address, phone: phone, email: email, gender: gender })
         }
         this.setState({
             modal: false,
