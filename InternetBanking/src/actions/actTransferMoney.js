@@ -90,16 +90,13 @@ export function ConfirmOTP(values) {
             console.log("ConfirmOTP", response)
             if (response) {
                 if (response.status === "success") {
-                    toast.success("Lưu thành công!");
+                    toast.success("Chuyển tiền thành công!");
                 } else {
-                    toast.error("Lưu thất bại!");
+                    toast.error(response.data.message);
                 }
-                // dispatch(getCustomerStoreByCustomerId({
-                //     id: values.customer_id
-                // }));
             }
             else {
-                toast.error("Lưu thất bại!");
+                toast.error("Chuyển tiền thất bại!");
             }
         })
     }

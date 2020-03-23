@@ -56,7 +56,9 @@ class TransferMoneySameBank extends Component {
                     id: "1",
                     label: "Người nhận trả phí"
                 }
-            ]
+            ],
+            disabled: false,
+            hidden: true
         };
 
 
@@ -66,30 +68,38 @@ class TransferMoneySameBank extends Component {
         this.refAccountNameReceive = React.createRef();
         this.refMoneyReceive = React.createRef();
         this.refContentReceive = React.createRef();
+        this.refOTP = React.createRef();
 
         this.onChangeRememberName = this.onChangeRememberName.bind(this);
         this.onChangeMethod = this.onChangeMethod.bind(this);
         this.CheckCustomer = this.CheckCustomer.bind(this);
         this.onChangeChkRememberName = this.onChangeChkRememberName.bind(this);
         this.TransactionMoney = this.TransactionMoney.bind(this);
+        this.CanceTransferMoney = this.CanceTransferMoney.bind(this);
+        this.ConfirmOTP = this.ConfirmOTP.bind(this);
 
     }
 
     componentDidMount() {
         this.props.getCustomerByID({ id: 1 });
         this.props.getCustomerStoreByCustomerId({ id: 1 });
+
     }
 
     onChangeRememberName(value) {
         this.setState({ valueRememberName: value });
-        console.log("valueRememberName", this.state.valueRememberName, "value",value)
+        console.log("valueRememberName", this.state.valueRememberName, "value", value)
 
-        if(value && value != ""){
+        if (value && value != "") {
             this.refNumberPayment.current.value = value.value;
             this.refNumberPayment.current.disabled = "disabled";
-        }else{
+        } else {
             this.refNumberPayment.current.disabled = "";
             this.refNumberPayment.current.value = "";
+
+            this.setState((state, props) => {
+                return { [props.customer_payment]: {} }
+            });
         }
     }
 
@@ -139,16 +149,53 @@ class TransferMoneySameBank extends Component {
                 }
                 console.log("TransactionMoney params", params)
 
+                this.props.TransactionMoney(params);
+                // toast.success("Mã OTP đã gửi gửi đến gmail của bạn. Vui lòng xác nhận OTP!");
+
                 this.refNumberPayment.current.disabled = "disabled";
                 this.refMoneyReceive.current.disabled = "disabled";
                 this.refContentReceive.current.disabled = "disabled";
                 this.refRememberName.current.disabled = "disabled";
                 this.refRememberName.current.disabled = "disabled";
+                this.setState({
+                    disabled: true,
+                    hidden: false
+                });
             } else {
                 toast.error("Vui lòng nhập đầy đủ thông tin.");
             }
         } else {
             toast.error("Thông tin người nhận chưa xác thực. Vui lòng nhấn kiểm tra.");
+        }
+    }
+
+    CanceTransferMoney() {
+        this.refNumberPayment.current.disabled = "";
+        this.refMoneyReceive.current.disabled = "";
+        this.refContentReceive.current.disabled = "";
+        this.refRememberName.current.disabled = "";
+        this.refRememberName.current.disabled = "";
+        this.setState({
+            disabled: false,
+            hidden: true
+        });
+    }
+
+    ConfirmOTP() {
+        if (this.refOTP.current.value != "") {
+            var params = {
+
+                "customer_id": 4,
+                "otp_code": this.refOTP.current.value,
+            }
+            console.log("ConfirmOTP params", params)
+
+            this.props.ConfirmOTP(params);
+
+           
+           
+        } else {
+            toast.error("Vui lòng nhập mã OTP!");
         }
     }
 
@@ -206,6 +253,7 @@ class TransferMoneySameBank extends Component {
                                                 value={this.state.valueRememberName}
                                                 options={this.props.selectCustomerStore ? this.props.selectCustomerStore : []}
                                                 onChange={this.onChangeRememberName}
+                                                disabled={this.state.disabled}
                                             />
                                         </FormGroup>
                                     </Col>
@@ -217,13 +265,13 @@ class TransferMoneySameBank extends Component {
                                     </Col>
                                     <Col xs="2">
                                         <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
-                                            <Button type="button" color="primary" onClick={this.CheckCustomer} style={{ marginTop: "28px", float: "left" }}><i className="icon-search"></i>Kiểm tra</Button>
+                                            <Button type="button" color="primary" onClick={this.CheckCustomer} style={{ marginTop: "28px", float: "left" }} disabled={this.state.disabled}><i className="icon-search"></i>Kiểm tra</Button>
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup >
                                             <Label htmlFor="name">Tên tài khoản</Label>
-                                            <input type="text" className="form-control" ref={this.refAccountNameReceive} placeholder="Tên tài khoản" disabled defaultValue={this.props.customer_payment ? this.props.customer_payment.name : ""} />
+                                            <input type="text" className="form-control" ref={this.refAccountNameReceive} placeholder="Tên tài khoản" disabled defaultValue={this.props.customer_payment && this.props.customer_payment.name ? this.props.customer_payment.name : ""} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
@@ -254,6 +302,7 @@ class TransferMoneySameBank extends Component {
                                                 value={this.state.valueMethod}
                                                 options={this.state.selectMethod}
                                                 onChange={this.onChangeMethod}
+                                                disabled={this.state.disabled}
                                             />
                                         </FormGroup>
                                     </Col>
@@ -268,13 +317,13 @@ class TransferMoneySameBank extends Component {
                             </CardBody>
                             <CardFooter>
                                 <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
-                                    <Button  type="button" color="primary" onClick={this.TransactionMoney}><i className="icon-plus"></i>Chuyển khoản</Button>
+                                    <Button type="button" color="primary" onClick={this.TransactionMoney} disabled={this.state.disabled}><i className="icon-plus"></i>Chuyển khoản</Button>
                                 </FormGroup>
                             </CardFooter>
                         </Card>
                     </Col>
 
-                    <Col xs="12" sm="12">
+                    <Col xs="12" sm="12" hidden={this.state.hidden}>
                         <Card className="search_box">
                             <CardHeader>
                                 Thông tin OTP
@@ -284,14 +333,16 @@ class TransferMoneySameBank extends Component {
                                     <Col xs="6">
                                         <FormGroup>
                                             <Label htmlFor="name">Mã OTP</Label>
-                                            <Input type="text" placeholder="Mã OTP" />
+                                            <input className="form-control" ref={this.refOTP} type="text" placeholder="Mã OTP" />
                                         </FormGroup>
                                     </Col>
                                 </Row>
                             </CardBody>
                             <CardFooter>
                                 <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
-                                    <Button type="submit" color="primary"><i className="icon-plus"></i>Xác nhận</Button>
+                                    <Button type="button" color="warning" onClick={this.CanceTransferMoney}><i className="icon-plus"></i>Hủy giao dịch</Button>
+                                    <Button type="button" color="primary" onClick={this.ConfirmOTP}><i className="icon-plus"></i>Xác nhận</Button>
+                                    <Button type="button" color="success"><i className="icon-plus"></i>Gửi lại OTP</Button>
                                 </FormGroup>
                             </CardFooter>
                         </Card>
