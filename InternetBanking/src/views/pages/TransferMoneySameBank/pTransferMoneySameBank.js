@@ -144,7 +144,7 @@ class TransferMoneySameBank extends Component {
                 var params = {
                     "customer_id": 4,
                     "customer_receive_id": this.props.customer_payment.customer_id,
-                    "amount": this.refMoneyReceive.current.value,
+                    "amount": parseInt(this.refMoneyReceive.current.value),
                     "content": this.refContentReceive.current.value
                 }
                 console.log("TransactionMoney params", params)
@@ -192,8 +192,8 @@ class TransferMoneySameBank extends Component {
 
             this.props.ConfirmOTP(params);
 
-           
-           
+
+
         } else {
             toast.error("Vui lòng nhập mã OTP!");
         }

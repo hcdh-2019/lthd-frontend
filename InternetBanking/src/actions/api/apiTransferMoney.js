@@ -46,7 +46,7 @@ export function SaveCustomerStore(params, callback) {
 
 // Chuyển tiền
 export function TransactionMoney(params, callback) {
-    console.log("TransactionMoney", params)
+    console.log("TransactionMoney params", JSON.stringify(params))
     axios.post(helper.getApiUrl('receive') + "transaction", params).then(function (response) {
         console.log("response_api", response)
         if (response.status === 201 && response.statusText === "CREATED") {
