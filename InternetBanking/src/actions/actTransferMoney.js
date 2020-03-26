@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 export function getCustomerStoreByCustomerId(values) {
     return (dispatch, getState) => {
         apiTransferMoney.getCustomerStoreByCustomerId(values, function (err, response) {
-            console.log("getCustomerStoreByCustomerId", response, "params", values)
+            // console.log("getCustomerStoreByCustomerId", response, "params", values)
             if (response) {
                 dispatch(_getCustomerStoreByCustomerId(response));
             }
@@ -46,13 +46,11 @@ export function SaveCustomerStore(values) {
             console.log("SaveCustomerStore", response)
             if (response) {
                 if (response.status === "success") {
-                    toast.success("Lưu thành công!");
+                    toast.success("Lưu tên gợi nhớ thành công!");
+                    dispatch(getCustomerStoreByCustomerId({ id: values.customer_id }));
                 } else {
-                    toast.error("Lưu thất bại!");
+                    toast.error("Lưu tên gợi nhớ thất bại!");
                 }
-                dispatch(getCustomerStoreByCustomerId({
-                    id: values.customer_id
-                }));
             }
             else {
                 toast.error("Lưu thất bại!");
@@ -68,16 +66,13 @@ export function TransactionMoney(values) {
             console.log("TransactionMoney", response)
             if (response) {
                 if (response.status === "success") {
-                    toast.success("Lưu thành công!");
+                    toast.success("Mã OTP đã được gửi tới gmail, OTP có hạn trong 2 phút.");
                 } else {
-                    toast.error("Lưu thất bại!");
+                    toast.error(response.data.message);
                 }
-                // dispatch(getCustomerStoreByCustomerId({
-                //     id: values.customer_id
-                // }));
             }
             else {
-                toast.error("Lưu thất bại!");
+                toast.error("Gửi mã OTP thất bại, xin vui lòng thử lại.");
             }
         })
     }
@@ -90,13 +85,14 @@ export function ConfirmOTP(values) {
             console.log("ConfirmOTP", response)
             if (response) {
                 if (response.status === "success") {
-                    toast.success("Chuyển tiền thành công!");
+                    toast.success("Chuyển tiền thành công.");
+
                 } else {
                     toast.error(response.data.message);
                 }
             }
             else {
-                toast.error("Chuyển tiền thất bại!");
+                toast.error("Chuyển tiền thất bại.");
             }
         })
     }

@@ -31,9 +31,9 @@ export function getCustomerByNumberPayment(params, callback) {
 
 // Thêm tên gợi nhớ
 export function SaveCustomerStore(params, callback) {
-    console.log("SaveCustomerStore", params)
+    // console.log("SaveCustomerStore", params)
     axios.post(helper.getApiUrl('customer') + "customer_store/", params).then(function (response) {
-        console.log("response_api", response)
+        // console.log("response_api", response)
         if (response.status === 201 && response.statusText === "CREATED") {
             callback(null, response.data)
         }
@@ -48,7 +48,7 @@ export function SaveCustomerStore(params, callback) {
 export function TransactionMoney(params, callback) {
     console.log("TransactionMoney params", JSON.stringify(params))
     axios.post(helper.getApiUrl('receive') + "transaction", params).then(function (response) {
-        console.log("response_api", response)
+        console.log("TransactionMoney response_api", response)
         if (response.status === 201 && response.statusText === "CREATED") {
             callback(null, response.data)
         }
@@ -61,9 +61,9 @@ export function TransactionMoney(params, callback) {
 
 // Xác nhận OTP
 export function ConfirmOTP(params, callback) {
-    console.log("ConfirmOTP", params)
+    console.log("ConfirmOTP params", params)
     axios.post(helper.getApiUrl('receive') + "transaction_confirm", params).then(function (response) {
-        console.log("response_api", response)
+        console.log("ConfirmOTP response_api", response)
         if (response.status === 201 && response.statusText === "CREATED") {
             callback(null, response.data)
         }

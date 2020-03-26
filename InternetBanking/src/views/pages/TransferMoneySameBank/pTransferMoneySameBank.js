@@ -77,18 +77,16 @@ class TransferMoneySameBank extends Component {
         this.TransactionMoney = this.TransactionMoney.bind(this);
         this.CanceTransferMoney = this.CanceTransferMoney.bind(this);
         this.ConfirmOTP = this.ConfirmOTP.bind(this);
-
+        this.validateInput = this.validateInput.bind(this);
     }
 
     componentDidMount() {
-        this.props.getCustomerByID({ id: 1 });
-        this.props.getCustomerStoreByCustomerId({ id: 1 });
-
+        this.props.getCustomerByID({ id: 4 });
+        this.props.getCustomerStoreByCustomerId({ id: 4 });
     }
 
     onChangeRememberName(value) {
         this.setState({ valueRememberName: value });
-        console.log("valueRememberName", this.state.valueRememberName, "value", value)
 
         if (value && value != "") {
             this.refNumberPayment.current.value = value.value;
@@ -97,35 +95,36 @@ class TransferMoneySameBank extends Component {
             this.refNumberPayment.current.disabled = "";
             this.refNumberPayment.current.value = "";
 
-            this.setState((state, props) => {
-                return { [props.customer_payment]: {} }
-            });
+            // this.setState((state, props) => {
+            //     return { [props.customer_payment]: {} }
+            // });
         }
     }
 
     onChangeMethod(value) {
         this.setState({ valueMethod: value });
-        console.log("valueMethod", this.state.valueMethod)
     }
 
     CheckCustomer() {
         if (this.refNumberPayment.current.value != "") {
             var Number = this.refNumberPayment.current.value;
-            this.props.getCustomerByNumberPayment({ id: Number });
-            console.log("refNumberPayment", Number)
+            var valid = this.validateInput(Number);
+            if (!valid.isInputValid) {
+                toast.error(valid.errorMessage);
+            } else {
+                this.props.getCustomerByNumberPayment({ id: Number });
+            }
         } else {
             toast.error("Vui lòng chọn tên gợi nhớ hoặc nhập số tài khoản.");
         }
     }
 
     onChangeChkRememberName(value) {
-        console.log("onChangeChkRememberName", value.target.checked)
         if (value.target.checked) {
-            var name = this.refRememberName.current.value && this.refRememberName.current.value != "" ? this.refRememberName.current.value : this.refAccountNameReceive.current.value
-            console.log("name", name)
+            var name = this.refRememberName.current.value && this.refRememberName.current.value != "" ? this.refRememberName.current.value : this.refAccountNameReceive.current.value;
             if (name && name != "" && this.props.customer_payment && this.props.customer_payment.customer_id) {
                 this.props.SaveCustomerStore({
-                    "customer_id": 1,
+                    "customer_id": 4,
                     "customer_store_id": this.props.customer_payment.customer_id,
                     "name_store": name
                 })
@@ -134,11 +133,11 @@ class TransferMoneySameBank extends Component {
             }
         }
 
+        this.refChkRememberName.current.value = false;
         this.setState({ chkRememberName: false });
     }
 
     TransactionMoney() {
-        console.log("this.props.customer_payment", this.props.customer_payment)
         if (this.props.customer_payment && this.props.customer_payment.customer_id) {
             if (this.refMoneyReceive.current.value != "" && this.refContentReceive.current.value != "") {
                 var params = {
@@ -147,10 +146,8 @@ class TransferMoneySameBank extends Component {
                     "amount": parseInt(this.refMoneyReceive.current.value),
                     "content": this.refContentReceive.current.value
                 }
-                console.log("TransactionMoney params", params)
 
                 this.props.TransactionMoney(params);
-                // toast.success("Mã OTP đã gửi gửi đến gmail của bạn. Vui lòng xác nhận OTP!");
 
                 this.refNumberPayment.current.disabled = "disabled";
                 this.refMoneyReceive.current.disabled = "disabled";
@@ -181,21 +178,33 @@ class TransferMoneySameBank extends Component {
         });
     }
 
-    ConfirmOTP() {
+     ConfirmOTP() {
         if (this.refOTP.current.value != "") {
             var params = {
-
                 "customer_id": 4,
                 "otp_code": this.refOTP.current.value,
             }
-            console.log("ConfirmOTP params", params)
 
-            this.props.ConfirmOTP(params);
-
-
-
+             this.props.ConfirmOTP(params);
+            // this.props.getCustomerByID({ id: 4 });
         } else {
             toast.error("Vui lòng nhập mã OTP!");
+        }
+    }
+
+    validateInput(checkingText) {
+        const regexp = /^[0-9]*$/;
+        const checkingResult = regexp.exec(checkingText);
+        if (checkingResult !== null) {
+            return {
+                isInputValid: true,
+                errorMessage: ''
+            };
+        } else {
+            return {
+                isInputValid: false,
+                errorMessage: 'Sai định dạnh, chỉ nhập số.'
+            };
         }
     }
 
@@ -247,7 +256,6 @@ class TransferMoneySameBank extends Component {
                                         <FormGroup >
                                             <Label htmlFor="name">Tên gợi nhớ</Label>
                                             <Select
-                                                required
                                                 placeholder="Chọn tên gợi nhớ"
                                                 name="form-field-name2"
                                                 value={this.state.valueRememberName}
@@ -277,7 +285,7 @@ class TransferMoneySameBank extends Component {
                                     <Col xs="6">
                                         <FormGroup >
                                             <Label htmlFor="name">Số tiền chuyển</Label>
-                                            <input type="text" className="form-control" placeholder="Số tiền chuyển" ref={this.refMoneyReceive} />
+                                            <input type="number" className="form-control" placeholder="Số tiền chuyển" ref={this.refMoneyReceive} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
@@ -296,7 +304,6 @@ class TransferMoneySameBank extends Component {
                                         <FormGroup >
                                             <Label htmlFor="name">Hình thức thanh toán</Label>
                                             <Select
-                                                required
                                                 placeholder="Chọn hình thức thanh toán"
                                                 name="form-field-name2"
                                                 value={this.state.valueMethod}
