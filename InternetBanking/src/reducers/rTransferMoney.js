@@ -11,11 +11,25 @@ const TransferMoney = (state = defaultState, action) => {
                 customer_store: action.payload.data,
                 selectCustomerStore: data
             };
+
         case type.GET_CUSTOMERBYPAYMENT:
             return {
                 ...state,
                 customer_payment: action.payload.data,
             };
+
+        case type.CLEARCUSTOMERPAYMENT:
+            return {
+                ...state,
+                customer_payment: action.payload,
+            };
+            
+        case type.CONFIRMOTP:
+            return {
+                ...state,
+                confirm_otp_disabled: action.payload,
+            };
+
         default:
             return {
                 ...state,

@@ -95,9 +95,8 @@ class TransferMoneySameBank extends Component {
             this.refNumberPayment.current.disabled = "";
             this.refNumberPayment.current.value = "";
 
-            // this.setState((state, props) => {
-            //     return { [props.customer_payment]: {} }
-            // });
+            this.props._ClearCustomerPayment(null);
+
         }
     }
 
@@ -172,21 +171,24 @@ class TransferMoneySameBank extends Component {
         this.refContentReceive.current.disabled = "";
         this.refRememberName.current.disabled = "";
         this.refRememberName.current.disabled = "";
+        this.refOTP.current.value = "";
         this.setState({
             disabled: false,
             hidden: true
         });
+
+        this.props._ConfirmOTPDisabled(false);
     }
 
-     ConfirmOTP() {
+    ConfirmOTP() {
         if (this.refOTP.current.value != "") {
             var params = {
                 "customer_id": 4,
                 "otp_code": this.refOTP.current.value,
             }
 
-             this.props.ConfirmOTP(params);
-            // this.props.getCustomerByID({ id: 4 });
+            this.props.ConfirmOTP(params);
+
         } else {
             toast.error("Vui lòng nhập mã OTP!");
         }
@@ -348,8 +350,8 @@ class TransferMoneySameBank extends Component {
                             <CardFooter>
                                 <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
                                     <Button type="button" color="warning" onClick={this.CanceTransferMoney}><i className="icon-plus"></i>Hủy giao dịch</Button>
-                                    <Button type="button" color="primary" onClick={this.ConfirmOTP}><i className="icon-plus"></i>Xác nhận</Button>
-                                    <Button type="button" color="success"><i className="icon-plus"></i>Gửi lại OTP</Button>
+                                    <Button type="button" color="primary" onClick={this.ConfirmOTP} disabled={this.props.confirm_otp_disabled}><i className="icon-plus"></i>Xác nhận</Button>
+                                    <Button type="button" color="success" onClick={this.TransactionMoney} disabled={this.props.confirm_otp_disabled}><i className="icon-plus"></i>Gửi lại OTP</Button>
                                 </FormGroup>
                             </CardFooter>
                         </Card>
@@ -360,7 +362,7 @@ class TransferMoneySameBank extends Component {
     }
 }
 TransferMoneySameBank = connect((state) => {
-    console.log("state.Customer", state.Customer, "state.TransferMoney", state.TransferMoney)
+    console.log("state TransferMoneySameBank", state)
     return { ...state.Customer, ...state.TransferMoney }
 }, { ...actCustomer, ...actTransferMoney })(TransferMoneySameBank);
 export default TransferMoneySameBank;

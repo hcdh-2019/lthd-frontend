@@ -1,5 +1,5 @@
 import * as type from '../constants'
-import { apiTransferMoney } from './api'
+import { apiTransferMoney, apiCustomer } from './api'
 import { toast } from 'react-toastify';
 
 export function getCustomerStoreByCustomerId(values) {
@@ -36,6 +36,13 @@ export function getCustomerByNumberPayment(values) {
 export function _getCustomerByNumberPayment(payload) {
     return {
         type: type.GET_CUSTOMERBYPAYMENT,
+        payload
+    }
+}
+
+export function _ClearCustomerPayment(payload) {
+    return {
+        type: type.CLEARCUSTOMERPAYMENT,
         payload
     }
 }
@@ -86,7 +93,11 @@ export function ConfirmOTP(values) {
             if (response) {
                 if (response.status === "success") {
                     toast.success("Chuyển tiền thành công.");
+                    dispatch(getCustomerByID({
+                        id: values.customer_id
+                    }));
 
+                    dispatch(_ConfirmOTPDisabled(true));
                 } else {
                     toast.error(response.data.message);
                 }
@@ -95,5 +106,32 @@ export function ConfirmOTP(values) {
                 toast.error("Chuyển tiền thất bại.");
             }
         })
+    }
+}
+
+
+export function _ConfirmOTPDisabled(payload) {
+    return {
+        type: type.CONFIRMOTP,
+        payload
+    }
+}
+
+export function getCustomerByID(values) {
+    return (dispatch, getState) => {
+        apiCustomer.getCustomerByID(values, function (err, response) {
+            //  console.log("getCustomer", response)
+            if (response) {
+                dispatch(_getCustomerByID(response));
+            }
+        })
+    }
+}
+
+
+export function _getCustomerByID(payload) {
+    return {
+        type: type.GET_CUSTOMERBYID,
+        payload
     }
 }
