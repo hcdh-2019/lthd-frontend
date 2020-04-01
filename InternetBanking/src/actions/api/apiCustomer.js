@@ -3,10 +3,10 @@ import * as helper from '../../modules/Helper.js'
 
 // Thêm khách hàng
 export function createCustomer(params, callback) {
-    console.log("createCustomer",JSON.stringify(params))
+    console.log("createCustomer", JSON.stringify(params))
     axios.post(helper.getApiUrl('customer'), params).then(function (response) {
         //  console.log("response_api",response)
-        if (response.status === 201 && response.statusText === "CREATED" ) {
+        if (response.status === 201 && response.statusText === "CREATED") {
             callback(null, response.data)
         }
         else callback(response, null)
@@ -44,7 +44,7 @@ export function deleteCustomer(params, callback) {
 }
 //lấy danh sách khách hàng
 export function getCustomer(params, callback) {
-    axios.get(helper.getApiUrl('customer') ,params).then(function (response) {
+    axios.get(helper.getApiUrl('customer'), params).then(function (response) {
         // console.log("response",response)
         if (response.status === 200) {
             callback(null, response.data.data)
@@ -59,10 +59,25 @@ export function getCustomer(params, callback) {
 //lấy khách hàng theo id
 export function getCustomerByID(params, callback) {
     // console.log("getCustomerByID params: ", params)
-    axios.get(helper.getApiUrl('customer') + params.id ,params).then(function (response) {
+    axios.get(helper.getApiUrl('customer') + params.id, params).then(function (response) {
         // console.log("response",response)
         if (response.status === 201) {
             callback(null, response.data.data)
+        }
+        else callback(response, null)
+    }).catch(function (error) {
+        console.log("ERROR:", error)
+        callback(error, null)
+    })
+}
+
+// Cập nhật mật khẩu
+export function UpdatePass(params, callback) {
+    console.log("UpdatePass", JSON.stringify(params))
+    axios.post(helper.getApiUrl('customer') + "change_password", params).then(function (response) {
+        console.log("response_api", response)
+        if (response.status === 201 && response.statusText === "CREATED") {
+            callback(null, response.data)
         }
         else callback(response, null)
     }).catch(function (error) {

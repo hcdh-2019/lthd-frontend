@@ -30,8 +30,10 @@ module.exports = {
         'Profile': {
             name: "Profile",
             url: "/Profile",
-            permission: false,
-            title: "Thông tin cá nhân"
+            role: 'student',
+            permission: true,
+            title: "Thông tin cá nhân",
+            breadcrumb: "Thông tin cá nhân"
         },
         'StudentManagement': {
             name: "StudentManagement",

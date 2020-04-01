@@ -8,15 +8,14 @@ export function createCustomer(values) {
         apiCustomer.createCustomer(values, function (err, response) {
             // console.log("createCustomer", response)
             if (response) {
-                if(response.status === "success"){
+                if (response.status === "success") {
                     toast.success("Thêm khách hàng thành công!");
-                }else{
+                } else {
                     toast.error("Thêm khách hàng thất bại!");
                 }
                 dispatch(getCustomer());
             }
-            else
-            {
+            else {
                 toast.error("Thêm khách hàng thất bại!");
             }
         })
@@ -98,3 +97,21 @@ export function _getCustomerByID(payload) {
     }
 }
 
+// Cập nhật mật khẩu
+export function UpdatePass(values) {
+    return (dispatch, getState) => {
+        apiCustomer.UpdatePass(values, function (err, response) {
+            console.log("UpdatePass", response)
+            if (response) {
+                if (response.status === "success") {
+                    toast.success("Cập nhật mật khẩu thành công!");
+                } else {
+                    toast.error("Cập nhật mật khẩu thất bại!");
+                }
+            }
+            else {
+                toast.error("Cập nhật mật khẩu thất bại!");
+            }
+        })
+    }
+}
