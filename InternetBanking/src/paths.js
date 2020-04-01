@@ -44,6 +44,7 @@ const routes = {
   [helper.getPathHost("RevenueDetailManagement","url")]:  [helper.getPathHost("RevenueDetailManagement","breadcrumb")],
   [helper.getPathHost("TransferMoneySameBank","url")]:  [helper.getPathHost("TransferMoneySameBank","breadcrumb")],
   [helper.getPathHost("CustomerManagement","url")]:  [helper.getPathHost("CustomerManagement","breadcrumb")],
-  [helper.getPathHost("ReceiveMoneyBankAccount","url")]:  [helper.getPathHost("ReceiveMoneyBankAccount","breadcrumb")]
+  [helper.getPathHost("ReceiveMoneyBankAccount","url")]:  [helper.getPathHost("ReceiveMoneyBankAccount","breadcrumb")],
+  [helper.getPathHost("Profile","url")]:  [helper.getPathHost("Profile","breadcrumb")]
 };
 export default routes;

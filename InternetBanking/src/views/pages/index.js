@@ -11,4 +11,5 @@ module.exports = {
     'TransferMoneySameBank': require('./TransferMoneySameBank/pTransferMoneySameBank.js').default,
     'CustomerManagement': require('./CustomerManagement/pCustomerManagement.js').default,
     'ReceiveMoneyBankAccount': require('./ReceiveMoneyBankAccount/pReceiveMoneyBankAccount.js').default,
+    'Profile': require('./Profile/pProfile.js').default,
 }

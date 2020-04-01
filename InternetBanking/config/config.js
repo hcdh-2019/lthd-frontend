@@ -27,6 +27,12 @@ module.exports = {
             permission: false,
             title: "Đăng nhập"
         },
+        'Profile': {
+            name: "Profile",
+            url: "/Profile",
+            permission: false,
+            title: "Thông tin cá nhân"
+        },
         'StudentManagement': {
             name: "StudentManagement",
             url: '/student-management',
