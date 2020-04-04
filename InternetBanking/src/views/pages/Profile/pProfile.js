@@ -85,19 +85,19 @@ class Profile extends Component {
                                         <Col xs="4">
                                             <FormGroup style={{ marginBottom: 0 }}>
                                                 <Label htmlFor="name">Mật khẩu cũ</Label>
-                                                <input className="form-control" ref={this.refPassOld} type="text" placeholder="Mật khẩu cũ" required />
+                                                <input className="form-control" ref={this.refPassOld} type="password" placeholder="Mật khẩu cũ" required />
                                             </FormGroup>
                                         </Col>
                                         <Col xs="4">
                                             <FormGroup style={{ marginBottom: 0 }}>
                                                 <Label htmlFor="name">Mật khẩu mới</Label>
-                                                <input className="form-control" ref={this.refPassNew} type="text" placeholder="Mật khẩu mới" required />
+                                                <input className="form-control" ref={this.refPassNew} type="password" placeholder="Mật khẩu mới" required />
                                             </FormGroup>
                                         </Col>
                                         <Col xs="4">
                                             <FormGroup style={{ marginBottom: 0 }}>
                                                 <Label htmlFor="name">Nhập lại mật khẩu mới</Label>
-                                                <input className="form-control" ref={this.refRePassNew} type="text" placeholder="Nhập lại mật khẩu mới" required />
+                                                <input className="form-control" ref={this.refRePassNew} type="password" placeholder="Nhập lại mật khẩu mới" required />
                                             </FormGroup>
                                         </Col>
                                     </Row>

@@ -25,7 +25,7 @@ var Administrator = (props) => {
     } else return null;
 }
 Administrator = connect((state) => {
-    // console.log("state.SignIn",state.SignIn)
+    console.log("state.SignIn",state.SignIn)
     return { ...state.SignIn }
 })(Administrator)
 export default Administrator

@@ -6,10 +6,12 @@ import { toast } from 'react-toastify';
 export function onSignIn(values) {
     return (dispatch, getState) => {
         apiSignIn.signIn(values, function (err, response) {
-             //console.log("onSignIn",err, response)
+            //console.log("onSignIn",err, response)
             if (response) {
-                localStorage.setItem('token', response.token);
-                dispatch(_onSignIn(response));
+                localStorage.setItem('token', response.data.access_token);
+                dispatch(_onSignIn(response.data));
+                // localStorage.setItem('token', response.token);
+                // dispatch(_onSignIn(response));
                 window.location.href = '/';
             }
             else {
@@ -25,16 +27,23 @@ export function _onSignIn(payload) {
     }
 }
 
+// export function getProfile(values) {
+//     return (dispatch, getState) => {
+//         apiSignIn.getProfile(values, function (err, response) {
+//             // console.log("getProfile", response)
+//             if (response) {
+//                 dispatch(_getProfile(response));
+//             }
+//         })
+//     }
+// }
+
 export function getProfile(values) {
     return (dispatch, getState) => {
-        apiSignIn.getProfile(values, function (err, response) {
-            // console.log("getProfile", response)
-            if (response) {
-                dispatch(_getProfile(response));
-            }
-        })
+        dispatch(_getProfile(null));
     }
 }
+
 export function _getProfile(payload) {
     return {
         type: type.GET_PROFILE,

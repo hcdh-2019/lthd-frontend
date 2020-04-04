@@ -104,7 +104,8 @@ class SignIn extends Component {
 
 SignIn = connect((state) => {
   // console.log("state",state.SignIn)
-  return state
+  // return state
+  return { ...state.SignIn }
 }, { ...actSignIn })(SignIn);
 
 export default SignIn;
