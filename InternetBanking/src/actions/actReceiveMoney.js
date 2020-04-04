@@ -30,6 +30,10 @@ export function getCustomerBySTK(values) {
             if (response) {
                 dispatch(_getCustomerBySTK(response));
             }
+            else
+            {
+                toast.error("Khách hàng không tồn tại!");
+            }
         })
     }
 }

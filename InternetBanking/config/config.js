@@ -18,7 +18,8 @@ module.exports = {
         'revenue_detail': ConfigURL.API_URL + '/api/revenue_detail',
         'object': ConfigURL.API_URL + '/api/revenue/getListObjectByID',
         'customer': ConfigURL.API_URL2 + '/customer/',
-        'receive': ConfigURL.API_URL2 + '/payment/'
+        'receive': ConfigURL.API_URL2 + '/payment/',
+        'history': ConfigURL.API_URL2 + '/payment/history/',
     },
     urlPath: {
         'SignIn': {
@@ -122,6 +123,14 @@ module.exports = {
             permission: true,
             title: "Nạp tiền vào tài khoản",
             breadcrumb: "Nạp tiền vào tài khoản"
+        },
+        'ViewHistoryByStaff': {
+            name: "ViewHistoryByStaff",
+            url: '/view-history',
+            role: 'budget',
+            permission: true,
+            title: "Lịch sử giao dịch",
+            breadcrumb: "Lịch sử giao dịch"
         }
     }
 

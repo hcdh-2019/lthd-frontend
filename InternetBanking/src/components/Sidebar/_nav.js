@@ -73,6 +73,12 @@ export default {
       icon: 'icon-home',
       role: helper.getPathHost("Profile", "role"),
     },
+    {
+      name: helper.getPathHost("ViewHistoryByStaff", "title"),
+      url: helper.getPathHost("ViewHistoryByStaff", "url"),
+      icon: 'icon-home',
+      role: helper.getPathHost("ViewHistoryByStaff", "role"),
+    },
     // {
     //   name: 'Quản lý đoàn đội',
     //   url: '/dashboard',

@@ -12,4 +12,5 @@
     actTransferMoney: require('./actTransferMoney'),
     actCustomer: require('./actCustomer'),
     actReceiveMoney: require('./actReceiveMoney'),
+    actHistory: require('./actHistory'),
 }
