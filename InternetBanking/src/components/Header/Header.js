@@ -44,7 +44,7 @@ class Header extends Component {
         <NavbarBrand href="#">
         <span className="logo-lg">
             <img src="img/logo_login.png" width="40px" alt="UserImage" />
-            <b>QL Trường Học</b>
+            <b>Internet Banking</b>
           </span>
         </NavbarBrand>
         <NavbarToggler className="d-md-down-none" onClick={this.sidebarToggle}>

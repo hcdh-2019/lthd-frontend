@@ -2,7 +2,7 @@ import axios from "axios";
 import * as helper from '../../modules/Helper.js'
 
 // Đăng nhập
-export function signIn(params, callback) {
+export function signIn1(params, callback) {
     const email = encodeURIComponent(params.email.toLowerCase());
     const password = encodeURIComponent(params.password);
     const formData = `email=${email}&password=${password}`;
@@ -13,8 +13,28 @@ export function signIn(params, callback) {
 
     // callback(null, data);
     axios.post(helper.getApiUrl('login'), formData).then(function (response) {
-         console.log("response",response)
+        console.log("response", response)
         if (response.status === 200) {
+            callback(null, response.data)
+        }
+        else callback(response, null)
+    }).catch(function (error) {
+        console.log("ERROR SigIn:", error)
+        callback(error, null)
+    })
+}
+
+// Đăng nhập
+export function signIn(params, callback) {
+    var paramsLogin = {
+        "email_or_username": params.email,
+        "password": params.password
+    }
+    // console.log("paramsLogin", paramsLogin)
+
+    axios.post(helper.getApiUrl('customer') + "login", paramsLogin).then(function (response) {
+        console.log("response signIn", response)
+        if (response.status === 201) {
             callback(null, response.data)
         }
         else callback(response, null)
@@ -26,7 +46,7 @@ export function signIn(params, callback) {
 
 export function getProfile(params, callback) {
     axios.get(helper.getApiUrl('get_profile'), params).then(function (response) {
-        // console.log("response",response)
+        // console.log("response params", JSON.stringify(response))
         if (response.status === 200) {
             callback(null, response.data)
         }

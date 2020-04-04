@@ -3,8 +3,8 @@ import { toast } from 'react-toastify';
 import * as Auth from '../../modules/Auth'
 import * as type from '../../constants'
 
-// console.log("token",localStorage.getItem('token'))
-axios.defaults.headers['Authorization'] = `bearer ${localStorage.getItem('token')}`
+console.log("token",localStorage.getItem('token'))
+axios.defaults.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`
 axios.interceptors.response.use(response => {
     return response;
 }, error => {
