@@ -6,8 +6,7 @@ export function getHistoryBySTK(params, callback) {
     console.log("getCustomerByID params: ", params)
     debugger
     axios.get(helper.getApiUrl('history') + params.number_payment).then(function (response) {
-        console.log("response",response)
-        debugger
+        // console.log("response",response)
         if (response.status === 201) {
             callback(null, response.data.data)
         }

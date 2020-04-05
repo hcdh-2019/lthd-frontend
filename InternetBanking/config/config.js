@@ -131,6 +131,14 @@ module.exports = {
             permission: true,
             title: "Lịch sử giao dịch",
             breadcrumb: "Lịch sử giao dịch"
+        },
+        'ViewHistoryByCustomer': {
+            name: "ViewHistoryByCustomer",
+            url: '/view-history-customer',
+            role: 'budget',
+            permission: true,
+            title: "Lịch sử giao dịch khách hàng",
+            breadcrumb: "Lịch sử giao dịch khách hàng"
         }
     }
 

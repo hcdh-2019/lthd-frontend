@@ -26,10 +26,10 @@ import {
     InputGroupAddon,
     InputGroupButton
 } from 'reactstrap';
-import * as helper from '../../../modules/Helper';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+// import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import data from '../../../views_template/Tables/DataTable/_data';
+import * as helper from '../../../modules/Helper';
 import { actReceiveMoney,actHistory } from "../../../actions";
 import { connect } from "react-redux";
 import { confirmAlert } from 'react-confirm-alert';
@@ -63,19 +63,31 @@ class ViewHistoryByStaff extends Component {
 
         this.refNumberPayment = React.createRef();
         this.refUserName = React.createRef();
+        this.refCustomerID = React.createRef();
 
         this.checkCustomer = this.checkCustomer.bind(this);
         this.searchHistory = this.searchHistory.bind(this);
     }
+
+    componentDidMount() {
+        this.props.getHistoryBySTK({ number_payment: "0"});
+    }
+
     checkCustomer() {
         var numberPayment = this.refNumberPayment.current.value;
         var userName = this.refUserName.current.value;
         this.props.getCustomerBySTK({ number_payment: numberPayment });
     }
     searchHistory(){
+        debugger
         var numberPayment = this.refNumberPayment.current.value;
         var userName = this.refUserName.current.value;
-        this.props.getHistoryBySTK({ number_payment: numberPayment });
+        var customerID = this.refCustomerID.current.value;
+        if(customerID !== ""){
+        this.props.getHistoryBySTK({ number_payment: customerID });
+        }else{
+            toast.waring("Chưa có thông tin khách hàng!");
+        }
     }
     
     render() {
@@ -90,10 +102,12 @@ class ViewHistoryByStaff extends Component {
                         <Card className="search_box">
                             <CardBody>
                                 <Row>
+                                
                                     <Col xs="4">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Số tài khoản</Label>
                                             <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} defaultValue={this.props.customer_one ? this.props.customer_one.number_payment : ""} />
+                                            <input type="hidden" className="form-control" placeholder="Số tài khoản" ref={this.refCustomerID} defaultValue={this.props.customer_one ? this.props.customer_one.customer_id : ""} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="4">
@@ -142,12 +156,12 @@ class ViewHistoryByStaff extends Component {
                                 <i className="icon-menu"></i>Danh sách lịch sử
                             </CardHeader>
                             <CardBody>
-                                <BootstrapTable data={this.props.history ? this.props.history : []} version="4" bordered={false} striped hover pagination search options={this.options}>
-                                    <TableHeaderColumn isKey dataField="id" dataSort dataAlign='center'>Mã khách hàng</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="name" dataSort dataAlign='center'>Họ tên</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="address" width='500px' dataAlign='center'>Địa chỉ</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="phone" dataSort dataAlign='center'>Số điện thoại</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="email" dataSort dataAlign='center'>Email</TableHeaderColumn>
+                                <BootstrapTable data={this.props.history111 ? this.props.history111 : []} version="4" bordered={false} striped hover pagination search options={this.options}>
+                                    <TableHeaderColumn isKey dataField="number_account" dataSort dataAlign='center'>Số tài khoản</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="message" dataSort dataAlign='center'>Loại giao dịch</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="sender" dataSort dataAlign='center'>Người gửi</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="received" dataSort dataAlign='center'>Người nhận</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="amount" dataSort dataAlign='center'>Số tiền</TableHeaderColumn>
                                 </BootstrapTable>
                             </CardBody>
                         </Card>

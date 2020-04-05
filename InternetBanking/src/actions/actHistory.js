@@ -9,10 +9,12 @@ export function getHistoryBySTK(values) {
             if (response) {
                 dispatch(_getHistoryBySTK(response));
             }
+            else {
+                toast.error("Lấy lịch sử lỗi!");
+            }
         })
     }
 }
-
 
 export function _getHistoryBySTK(payload) {
     return {

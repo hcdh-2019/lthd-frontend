@@ -7,7 +7,7 @@ const History = (state = defaultState, action) => {
         case type.GET_HISTORY:
             return {
                 ...state,
-                history: action.payload
+                history111: action.payload
             };
         default:
             return {

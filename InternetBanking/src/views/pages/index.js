@@ -12,5 +12,6 @@ module.exports = {
     'CustomerManagement': require('./CustomerManagement/pCustomerManagement.js').default,
     'ReceiveMoneyBankAccount': require('./ReceiveMoneyBankAccount/pReceiveMoneyBankAccount.js').default,
     'Profile': require('./Profile/pProfile.js').default,
-    'ViewHistoryByStaff': require('./ViewHistoryByStaff/pViewHistoryByStaff.js').default,
+    'ViewHistoryByStaff': require('./ViewHistory/pViewHistoryByStaff.js').default,
+    'ViewHistoryByCustomer': require('./ViewHistory/pViewHistoryByCustomer.js').default
 }

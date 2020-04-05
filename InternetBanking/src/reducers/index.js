@@ -27,5 +27,5 @@ export default combineReducers({
     TransferMoney,
     Customer,
     ReceiveMoney,
-    History,
+    History
 })
