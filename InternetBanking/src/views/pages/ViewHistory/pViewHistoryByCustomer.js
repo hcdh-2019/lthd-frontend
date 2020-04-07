@@ -41,7 +41,7 @@ class ViewHistoryByCustomer extends Component {
     constructor(props) {
         super(props);
         document.title = helper.getPathHost("ViewHistoryByCustomer", "title")
-        this.table = data.rows;
+        // this.table = data.rows;
         this.options = {
             sortIndicator: true,
             hideSizePerPage: true,
@@ -63,6 +63,7 @@ class ViewHistoryByCustomer extends Component {
     }
 
     componentDidMount() {
+
         this.props.getHistoryBySTK({ number_payment: "2"});
     }
 
