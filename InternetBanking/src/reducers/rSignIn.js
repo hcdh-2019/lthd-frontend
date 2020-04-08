@@ -11,29 +11,30 @@ const SignIn = (state = defaultState, action) => {
         case type.GET_PROFILE:
             return {
                 ...state,
-                // user: action.payload
-                user: {
-                    "status": "success",
-                    "data": {
-                        "id": 1,
-                        "name": "Admin",
-                        "email": "admin@gmail.com",
-                        "email_verified_at": null,
-                        "created_at": null,
-                        "updated_at": null,
-                        "type": 1,
-                        "role": {
-                            "student": true,
-                            "teacher": true,
-                            "score": true,
-                            "event_school": true,
-                            "budget": true,
-                            "schedule": true,
-                            "subject": true,
-                            "class": true
-                        }
-                    }
-                }
+                user: action.payload
+                // user: {
+                //     "status": "success",
+                //     "data": {
+                //         "id": 1,
+                //         "name": "Admin",
+                //         "email": "admin@gmail.com",
+                //         "email_verified_at": null,
+                //         "created_at": null,
+                //         "updated_at": null,
+                //         "type": 1,
+                //         "role": {
+                //             "student": true,
+                //             "teacher": true,
+                //             "score": true,
+                //             "event_school": true,
+                //             "budget": true,
+                //             "schedule": true,
+                //             "subject": true,
+                //             "class": true,
+                //             "any": true
+                //         }
+                //     }
+                // }
             };
         default:
             return {

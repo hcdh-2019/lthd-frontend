@@ -45,8 +45,8 @@ export function signIn(params, callback) {
 }
 
 export function getProfile(params, callback) {
-    axios.get(helper.getApiUrl('get_profile'), params).then(function (response) {
-        // console.log("response params", JSON.stringify(response))
+    axios.get(helper.getApiUrl('customer') + "profile", params).then(function (response) {
+        // console.log("response params", response)
         if (response.status === 200) {
             callback(null, response.data)
         }

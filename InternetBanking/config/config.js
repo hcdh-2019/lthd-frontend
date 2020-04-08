@@ -28,14 +28,6 @@ module.exports = {
             permission: false,
             title: "Đăng nhập"
         },
-        'Profile': {
-            name: "Profile",
-            url: "/Profile",
-            role: 'student',
-            permission: true,
-            title: "Thông tin cá nhân",
-            breadcrumb: "Thông tin cá nhân"
-        },
         'StudentManagement': {
             name: "StudentManagement",
             url: '/student-management',
@@ -100,10 +92,21 @@ module.exports = {
             title: "Quản lý chi tiết thu chi",
             breadcrumb: "Quản lý chi tiết thu chi"
         },
+
+        // Internet Banking
+
+        'Profile': {
+            name: "Profile",
+            url: "/Profile",
+            role: 'any',
+            permission: true,
+            title: "Thông tin cá nhân",
+            breadcrumb: "Thông tin cá nhân"
+        },
         'TransferMoneySameBank': {
             name: "TransferMoneySameBank",
             url: '/transfer-money-same-bank',
-            role: 'budget',
+            role: 'customer',
             permission: true,
             title: "Chuyển tiền cùng ngân hàng",
             breadcrumb: "Chuyển tiền cùng ngân hàng"
@@ -111,7 +114,7 @@ module.exports = {
         'CustomerManagement': {
             name: "CustomerManagement",
             url: '/customer-management',
-            role: 'budget',
+            role: 'admin',
             permission: true,
             title: "Quản lý khách hàng",
             breadcrumb: "Quản lý khách hàng"
@@ -119,7 +122,7 @@ module.exports = {
         'ReceiveMoneyBankAccount': {
             name: "ReceiveMoneyBankAccount",
             url: '/receive-money-bankaccount',
-            role: 'budget',
+            role: 'employee',
             permission: true,
             title: "Nạp tiền vào tài khoản",
             breadcrumb: "Nạp tiền vào tài khoản"
@@ -127,7 +130,7 @@ module.exports = {
         'ViewHistoryByStaff': {
             name: "ViewHistoryByStaff",
             url: '/view-history',
-            role: 'budget',
+            role: 'customer',
             permission: true,
             title: "Lịch sử giao dịch",
             breadcrumb: "Lịch sử giao dịch"
@@ -135,7 +138,7 @@ module.exports = {
         'ViewHistoryByCustomer': {
             name: "ViewHistoryByCustomer",
             url: '/view-history-customer',
-            role: 'budget',
+            role: 'customer',
             permission: true,
             title: "Lịch sử giao dịch khách hàng",
             breadcrumb: "Lịch sử giao dịch khách hàng"
