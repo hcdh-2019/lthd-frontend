@@ -81,7 +81,7 @@ class TransferMoneySameBank extends Component {
     }
 
     componentDidMount() {
-        this.props.getCustomerByID({ id: 4 });
+        this.props.getCustomerByID({ id: this.props.user.data.customer_id });
         this.props.getCustomerStoreByCustomerId({ id: 4 });
     }
 
@@ -363,6 +363,6 @@ class TransferMoneySameBank extends Component {
 }
 TransferMoneySameBank = connect((state) => {
     console.log("state TransferMoneySameBank", state)
-    return { ...state.Customer, ...state.TransferMoney }
+    return { ...state.Customer, ...state.TransferMoney, ...state.SignIn }
 }, { ...actCustomer, ...actTransferMoney })(TransferMoneySameBank);
 export default TransferMoneySameBank;
