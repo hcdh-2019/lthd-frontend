@@ -82,7 +82,7 @@ class TransferMoneySameBank extends Component {
 
     componentDidMount() {
         this.props.getCustomerByID({ id: this.props.user.data.customer_id });
-        this.props.getCustomerStoreByCustomerId({ id: 4 });
+        this.props.getCustomerStoreByCustomerId({ id: this.props.user.data.customer_id });
     }
 
     onChangeRememberName(value) {
@@ -123,7 +123,7 @@ class TransferMoneySameBank extends Component {
             var name = this.refRememberName.current.value && this.refRememberName.current.value != "" ? this.refRememberName.current.value : this.refAccountNameReceive.current.value;
             if (name && name != "" && this.props.customer_payment && this.props.customer_payment.customer_id) {
                 this.props.SaveCustomerStore({
-                    "customer_id": 4,
+                    "customer_id": this.props.user.data.customer_id,
                     "customer_store_id": this.props.customer_payment.customer_id,
                     "name_store": name
                 })
@@ -140,7 +140,7 @@ class TransferMoneySameBank extends Component {
         if (this.props.customer_payment && this.props.customer_payment.customer_id) {
             if (this.refMoneyReceive.current.value != "" && this.refContentReceive.current.value != "") {
                 var params = {
-                    "customer_id": 4,
+                    "customer_id": this.props.user.data.customer_id,
                     "customer_receive_id": this.props.customer_payment.customer_id,
                     "amount": parseInt(this.refMoneyReceive.current.value),
                     "content": this.refContentReceive.current.value
@@ -183,7 +183,7 @@ class TransferMoneySameBank extends Component {
     ConfirmOTP() {
         if (this.refOTP.current.value != "") {
             var params = {
-                "customer_id": 4,
+                "customer_id": this.props.user.data.customer_id,
                 "otp_code": this.refOTP.current.value,
             }
 
