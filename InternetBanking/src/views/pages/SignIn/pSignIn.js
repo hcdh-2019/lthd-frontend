@@ -6,6 +6,7 @@ import * as helper from '../../../modules/Helper';
 import { ToastContainer, toast } from 'react-toastify';
 // import { ReCaptcha } from 'react-recaptcha-google';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import ReCAPTCHA from "react-google-recaptcha";
 
 class SignIn extends Component {
   constructor(props) {
@@ -14,13 +15,16 @@ class SignIn extends Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.signIn = this.signIn.bind(this);
+    this.onChangeCaptcha = this.onChangeCaptcha.bind(this);
     // this.onLoadRecaptcha = this.onLoadRecaptcha.bind(this);
     // this.verifyCallback = this.verifyCallback.bind(this);
+
     this.state = {
       email: '',
       password: ''
     };
   }
+
   // componentDidMount() {
   //   if (this.captchaDemo) {
   //       console.log("started, just a second...")
@@ -38,6 +42,7 @@ class SignIn extends Component {
   //   // Here you will get the final recaptchaToken!!!  
   //   console.log(recaptchaToken, "<= your recaptcha token")
   // }
+
   handleEmailChange(e) {
     this.setState({ email: e.target.value })
   }
@@ -55,6 +60,11 @@ class SignIn extends Component {
       toast.warning("Vui lòng nhập đầy đủ thông tin!")
     }
   }
+
+  onChangeCaptcha(value) {
+    console.log("Captcha value:", value);
+  }
+
   render() {
     return (
       <div className="login_page">
@@ -86,15 +96,18 @@ class SignIn extends Component {
               </div>
               <Input type="password" placeholder="Mật khẩu" />
             </InputGroup>
+            <InputGroup className="mb-3" >
+              {/* <GoogleReCaptchaProvider reCaptchaKey="6LfFJdwUAAAAAE9H_sYuQQ0nnTmldTJQAdVSjv57" language="en" ></GoogleReCaptchaProvider> */}
+              <ReCAPTCHA
+                sitekey="6LdRK-gUAAAAAIBR4J1W8kd1qaojA5RG5PIWMk_E"
+                onChange={this.onChangeCaptcha}
+              />
+            </InputGroup>
             <Row>
               <Col xs="12">
                 <Button color="primary" className="px-3" onClick={this.signIn}><i className="icon-login"></i>Đăng nhập</Button>
               </Col>
             </Row>
-            <GoogleReCaptchaProvider
-              reCaptchaKey="6LfFJdwUAAAAAE9H_sYuQQ0nnTmldTJQAdVSjv57"
-              language="en"
-            ></GoogleReCaptchaProvider>
           </CardBody>
         </Card>
       </div>
@@ -104,7 +117,6 @@ class SignIn extends Component {
 
 SignIn = connect((state) => {
   // console.log("state",state.SignIn)
-  // return state
   return { ...state.SignIn }
 }, { ...actSignIn })(SignIn);
 

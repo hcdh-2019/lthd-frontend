@@ -50,7 +50,7 @@ class HeaderDropdown extends Component {
           <i className="fa fa-angle-down"></i>
         </DropdownToggle>
         <DropdownMenu right>
-          <DropdownItem><i className="fa fa-shield"></i>Cá nhân</DropdownItem>
+          {/* <DropdownItem><i className="fa fa-shield"></i>Cá nhân</DropdownItem> */}
           <DropdownItem onClick={this.logout}><i className="fa fa-lock"></i> Đăng xuất</DropdownItem>
         </DropdownMenu>
       </Dropdown>

@@ -52,7 +52,7 @@ class Profile extends Component {
         event.preventDefault();
         if (this.refPassNew.current.value == this.refRePassNew.current.value) {
             var params = {
-                "customer_id": 4,
+                "customer_id": this.props.user.data.customer_id,
                 "password": this.refPassOld.current.value,
                 "new_password": this.refPassNew.current.value
             }
@@ -117,6 +117,6 @@ class Profile extends Component {
 }
 Profile = connect((state) => {
     console.log("state Profile", state)
-    return { ...state.Customer }
+    return { ...state.Customer, ...state.SignIn }
 }, { ...actCustomer })(Profile);
 export default Profile;

@@ -153,7 +153,7 @@ class RouterPage extends Component {
   }
 }
 RouterPage = connect((state) => {
-  // console.log("SignIn", state)
+  console.log("SignIn", state)
   return { ...state.SignIn }
 }, { ...actSignIn })(RouterPage)
 export default RouterPage

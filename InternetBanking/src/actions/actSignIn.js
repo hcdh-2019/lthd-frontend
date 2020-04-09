@@ -27,22 +27,22 @@ export function _onSignIn(payload) {
     }
 }
 
-// export function getProfile(values) {
-//     return (dispatch, getState) => {
-//         apiSignIn.getProfile(values, function (err, response) {
-//             // console.log("getProfile", response)
-//             if (response) {
-//                 dispatch(_getProfile(response));
-//             }
-//         })
-//     }
-// }
-
 export function getProfile(values) {
     return (dispatch, getState) => {
-        dispatch(_getProfile(null));
+        apiSignIn.getProfile(values, function (err, response) {
+            // console.log("getProfile", response)
+            if (response) {
+                dispatch(_getProfile(response));
+            }
+        })
     }
 }
+
+// export function getProfile(values) {
+//     return (dispatch, getState) => {
+//         dispatch(_getProfile(null));
+//     }
+// }
 
 export function _getProfile(payload) {
     return {

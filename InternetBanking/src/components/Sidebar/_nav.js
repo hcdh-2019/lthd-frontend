@@ -49,6 +49,15 @@ export default {
       icon: 'icon-home',
       role: helper.getPathHost("EventManagement", "role"),
     },
+
+    // Internet Banking
+
+    {
+      name: helper.getPathHost("Profile", "title"),
+      url: helper.getPathHost("Profile", "url"),
+      icon: 'icon-home',
+      role: helper.getPathHost("Profile", "role"),
+    },
     {
       name: helper.getPathHost("TransferMoneySameBank", "title"),
       url: helper.getPathHost("TransferMoneySameBank", "url"),
@@ -66,12 +75,6 @@ export default {
       url: helper.getPathHost("ReceiveMoneyBankAccount", "url"),
       icon: 'icon-home',
       role: helper.getPathHost("ReceiveMoneyBankAccount", "role"),
-    }, 
-    {
-      name: helper.getPathHost("Profile", "title"),
-      url: helper.getPathHost("Profile", "url"),
-      icon: 'icon-home',
-      role: helper.getPathHost("Profile", "role"),
     },
     {
       name: helper.getPathHost("ViewHistoryByStaff", "title"),
@@ -85,17 +88,5 @@ export default {
       icon: 'icon-home',
       role: helper.getPathHost("ViewHistoryByCustomer", "role"),
     },
-    // {
-    //   name: 'Quản lý đoàn đội',
-    //   url: '/dashboard',
-    //   icon: 'icon-home',
-    //   role: 'event_school'
-    // },
-    // {
-    //   name: 'Quản lý thời khóa biểu',
-    //   url: '/dashboard',
-    //   icon: 'icon-home',
-    //   role: 'schedule'
-    // },
   ]
 };
