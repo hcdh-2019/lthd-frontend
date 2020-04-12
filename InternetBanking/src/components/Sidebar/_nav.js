@@ -88,5 +88,11 @@ export default {
       icon: 'icon-home',
       role: helper.getPathHost("ViewHistoryByCustomer", "role"),
     },
+    {
+      name: helper.getPathHost("TransactionRemind", "title"),
+      url: helper.getPathHost("TransactionRemind", "url"),
+      icon: 'icon-home',
+      role: helper.getPathHost("TransactionRemind", "role"),
+    },
   ]
 };
