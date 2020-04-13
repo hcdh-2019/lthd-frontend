@@ -20,7 +20,7 @@ module.exports = {
         'customer': ConfigURL.API_URL2 + '/customer/',
         'receive': ConfigURL.API_URL2 + '/payment/',
         'history': ConfigURL.API_URL2 + '/payment/history/',
-        'transaction_remind': ConfigURL.API_URL2 + '/customer/transaction_remind/',
+        'transaction_remind': ConfigURL.API_URL2 + '/customer/transaction_remind',
     },
     urlPath: {
         'SignIn': {

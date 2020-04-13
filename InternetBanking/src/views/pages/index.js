@@ -13,5 +13,6 @@ module.exports = {
     'ReceiveMoneyBankAccount': require('./ReceiveMoneyBankAccount/pReceiveMoneyBankAccount.js').default,
     'Profile': require('./Profile/pProfile.js').default,
     'ViewHistoryByStaff': require('./ViewHistory/pViewHistoryByStaff.js').default,
-    'ViewHistoryByCustomer': require('./ViewHistory/pViewHistoryByCustomer.js').default
+    'ViewHistoryByCustomer': require('./ViewHistory/pViewHistoryByCustomer.js').default,
+    'TransactionRemind': require('./TransactionRemind/pTransactionRemind.js').default
 }

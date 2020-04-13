@@ -13,6 +13,8 @@ import TransferMoney from './rTransferMoney'
 import Customer from './rCustomer'
 import ReceiveMoney from './rReceiveMoney'
 import History from './rHistory'
+import TransactionRemind from './rTransactionRemind'
+
 export default combineReducers({
     // Example,
     SignIn,
@@ -27,5 +29,6 @@ export default combineReducers({
     TransferMoney,
     Customer,
     ReceiveMoney,
-    History
+    History,
+    TransactionRemind
 })

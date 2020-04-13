@@ -5,13 +5,9 @@ import { toast } from 'react-toastify';
 export function getTransactionRemind(values) {
     return (dispatch, getState) => {
         apiTransactionRemind.getTransactionRemind(values, function (err, response) {
-            //  console.log("getCustomer", response)
+             console.log("getTransactionRemind", response)
             if (response) {
                 dispatch(_getTransactionRemind(response));
-            }
-            else
-            {
-                toast.error("Khách hàng không tồn tại!");
             }
         })
     }
