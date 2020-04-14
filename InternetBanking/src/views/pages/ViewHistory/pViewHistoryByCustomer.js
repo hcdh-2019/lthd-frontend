@@ -54,7 +54,6 @@ class ViewHistoryByCustomer extends Component {
             paginationShowsTotal: true,
             noDataText: 'Không có dữ liệu'
         }
-
         this.state = {
             modal: false,
             dataChoose: {},
@@ -63,7 +62,6 @@ class ViewHistoryByCustomer extends Component {
     }
 
     componentDidMount() {
-
         this.props.getHistoryBySTK({ number_payment: "2"});
     }
 

@@ -13,4 +13,5 @@
     actCustomer: require('./actCustomer'),
     actReceiveMoney: require('./actReceiveMoney'),
     actHistory: require('./actHistory'),
+    actTransactionRemind: require('./actTransactionRemind')
 }
