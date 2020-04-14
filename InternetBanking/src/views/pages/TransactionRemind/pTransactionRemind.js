@@ -35,10 +35,14 @@ import { actTransactionRemind } from "../../../actions";
 import { connect } from "react-redux";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+// React select
+import Select from 'react-select';
+import '../../../../scss/vendors/react-select/react-select.scss';
 
-const isGender = {
-    0: 'Nam',
-    1: 'Nữ'
+const isStatus = {
+    0: 'Mới tạo',
+    1: 'Đã thanh toán',
+    2: 'Đã huỷ'
 };
 function enumFormatter(cell, row, enumObject) {
     return enumObject[cell];
@@ -64,16 +68,81 @@ class TransactionRemind extends Component {
         this.state = {
             modal: false,
             dataChoose: {},
-            title: ""
+            title: "",
+            valueStatus: {
+                id: "0",
+                label: "Mới tạo"
+            },
+            selectStatus: [
+                {
+                    id: "0",
+                    label: "Mới tạo"
+                },
+                {
+                    id: "1",
+                    label: "Đã thanh toán"
+                },
+                {
+                    id: "-1",
+                    label: "Đã huỷ"
+                }
+            ],
+            valueRemind: {
+                id: "0",
+                label: "DS bị nhắc nợ"
+            },
+            selectRemind: [
+                {
+                    id: "0",
+                    label: "DS bị nhắc nợ"
+                },
+                {
+                    id: "1",
+                    label: "DS nhắc nợ"
+                }
+            ],
+            disabled: false,
+            hidden: true
         };
 
         this.toggle = this.toggle.bind(this);
         this.cellButton = this.cellButton.bind(this);
         this.onClickUpdateData = this.onClickUpdateData.bind(this);
         this.onClickDeleteData = this.onClickDeleteData.bind(this);
+        this.onChangeStatus = this.onChangeStatus.bind(this);
+        this.onChangeRemind = this.onChangeRemind.bind(this);
+        this.searchRemind = this.searchRemind.bind(this);
     }
     componentDidMount() {
-        this.props.getTransactionRemind();
+        var objParams = {
+            status : 0
+        }
+        if(this.state.valueRemind.id == "0"){
+            objParams.number_payment_receive = this.props.user.data.number_payment;
+        }else{
+            objParams.number_payment = this.props.user.data.number_payment;
+        }
+        this.props.getTransactionRemind(objParams);
+    }
+
+    onChangeStatus(value) {
+        this.setState({ valueStatus: value });
+    }
+
+    onChangeRemind(value) {
+        this.setState({ valueRemind: value });
+    }
+
+    searchRemind(){
+        var objParams = {
+            status : 0
+        }
+        if(this.state.valueRemind.id == "0"){
+            objParams.number_payment_receive = this.props.user.data.number_payment;
+        }else{
+            objParams.number_payment = this.props.user.data.number_payment;
+        }
+        this.props.getTransactionRemind(objParams);
     }
 
     toggle() {
@@ -140,21 +209,35 @@ class TransactionRemind extends Component {
                                 <Row>
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Số điện thoại</Label>
-                                            <Input type="text" placeholder="Số điện thoại" />
+                                            <Label htmlFor="name">Số tài khoản</Label>
+                                            <Select
+                                                placeholder="Hình thức nhắc nợ"
+                                                name="form-field-name2"
+                                                value={this.state.valueRemind}
+                                                options={this.state.selectRemind}
+                                                onChange={this.onChangeRemind}
+                                                disabled={this.state.disabled}
+                                            />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Tên khách hàng</Label>
-                                            <Input type="text" placeholder="Tên khách hàng" />
+                                            <Select
+                                                placeholder="Trạng thái"
+                                                name="form-field-name2"
+                                                value={this.state.valueStatus}
+                                                options={this.state.selectStatus}
+                                                onChange={this.onChangeStatus}
+                                                disabled={this.state.disabled}
+                                            />
                                         </FormGroup>
                                     </Col>
                                 </Row>
                             </CardBody>
                             <CardFooter>
                                 <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
-                                    <Button type="submit" color="primary"><i className="icon-magnifier"></i> Tìm Kiếm</Button>
+                                    <Button type="submit" color="primary" onClick={this.searchRemind}><i className="icon-magnifier"></i> Tìm Kiếm</Button>
                                     <Button type="button" color="warning" onClick={this.toggle}><i className="icon-plus"></i> Thêm Mới</Button>
                                 </FormGroup>
                             </CardFooter>
@@ -165,13 +248,12 @@ class TransactionRemind extends Component {
                             </CardHeader>
                             <CardBody>
                                 <BootstrapTable data={this.props.transaction_remind ? this.props.transaction_remind : []} version="4" bordered={false} striped hover pagination search options={this.options}>
-                                    <TableHeaderColumn isKey dataField="id" width='80px' dataSort dataAlign='center'>Mã KH</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="number_payment" width='150px' dataSort dataAlign='center'>Số tài khoản</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="name" width='200px' dataSort dataAlign='center'>Họ tên</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="address" width='200px' dataAlign='center'>Địa chỉ</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="phone" dataSort dataAlign='center'>Số điện thoại</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="email" width='200px' dataSort dataAlign='center'>Email</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="gender" dataFormat={enumFormatter} formatExtraData={isGender} dataSort dataAlign='center'>Giới tính</TableHeaderColumn>
+                                    <TableHeaderColumn isKey dataField="id" width='100px' dataSort dataAlign='center'>Mã nhắc nợ</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="number_payment" width='150px' dataSort dataAlign='center'>STK nhắc nợ</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="number_payment_receive" width='150px' dataSort dataAlign='center'>STK được nhắc nợ</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="Amount" dataSort dataAlign='center'>Số tiền</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="Content" width='200px' dataAlign='center'>Nội dung</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="Status" dataFormat={enumFormatter} formatExtraData={isStatus} dataSort dataAlign='center'>Trạng thái</TableHeaderColumn>
                                     <TableHeaderColumn dataField='button' dataFormat={this.cellButton} width='80px' dataAlign='center'>Control</TableHeaderColumn>
                                 </BootstrapTable>
                             </CardBody>
@@ -183,6 +265,6 @@ class TransactionRemind extends Component {
     }
 }
 TransactionRemind = connect((state) => {
-    return { ...state.TransactionRemind }
+    return { ...state.TransactionRemind, ...state.SignIn }
 }, { ...actTransactionRemind })(TransactionRemind);
 export default TransactionRemind;
