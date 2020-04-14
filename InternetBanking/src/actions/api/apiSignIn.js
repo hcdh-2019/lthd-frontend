@@ -44,6 +44,21 @@ export function signIn(params, callback) {
     })
 }
 
+// Refresh token
+// export function refreshToken(params, callback) {
+//     axios.post(helper.getApiUrl('customer') + "refresh_token", params).then(function (response) {
+//         console.log("response refreshToken", response)
+//         if (response.status === 200) {
+//             // localStorage.setItem('token', response.data.access_token);
+//             callback(null, response.data)
+//         }
+//         else callback(response, null)
+//     }).catch(function (error) {
+//         console.log("ERROR SigIn:", error)
+//         callback(error, null)
+//     })
+// }
+
 export function getProfile(params, callback) {
     axios.get(helper.getApiUrl('customer') + "profile", params).then(function (response) {
         // console.log("response params", response)

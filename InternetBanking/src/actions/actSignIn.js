@@ -9,10 +9,11 @@ export function onSignIn(values) {
             //console.log("onSignIn",err, response)
             if (response) {
                 localStorage.setItem('token', response.data.access_token);
+                localStorage.setItem('refresh_token', response.data.refresh_token);
                 dispatch(_onSignIn(response.data));
                 // localStorage.setItem('token', response.token);
                 // dispatch(_onSignIn(response));
-                window.location.href = '/';
+                // window.location.href = '/';
             }
             else {
                 toast.warning("Đăng nhập thất bại!")

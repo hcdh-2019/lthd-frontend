@@ -10,5 +10,6 @@ export function rolesMatched(role) {
 
 export function removeUserLogin(isReload) {
   localStorage.removeItem('token');
+  localStorage.removeItem('refresh_token');
   isReload && (window.location.href = '/#/signin');
 }
