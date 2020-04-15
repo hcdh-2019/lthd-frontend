@@ -29,7 +29,7 @@ import {
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import data from '../../../views_template/Tables/DataTable/_data';
-import ModalCustomer from '../../layouts/mSaveCustomer';
+import ModalTransactionRemind from '../../layouts/mTransactionRemind';
 import * as helper from '../../../modules/Helper';
 import { actTransactionRemind } from "../../../actions";
 import { connect } from "react-redux";
@@ -108,19 +108,15 @@ class TransactionRemind extends Component {
         this.toggle = this.toggle.bind(this);
         this.cellButton = this.cellButton.bind(this);
         this.onClickUpdateData = this.onClickUpdateData.bind(this);
-        this.onClickDeleteData = this.onClickDeleteData.bind(this);
+        this.onClickCancelData = this.onClickCancelData.bind(this);
         this.onChangeStatus = this.onChangeStatus.bind(this);
         this.onChangeRemind = this.onChangeRemind.bind(this);
         this.searchRemind = this.searchRemind.bind(this);
     }
     componentDidMount() {
         var objParams = {
+            number_payment_receive : this.props.user.data.number_payment,
             status : 0
-        }
-        if(this.state.valueRemind.id == "0"){
-            objParams.number_payment_receive = this.props.user.data.number_payment;
-        }else{
-            objParams.number_payment = this.props.user.data.number_payment;
         }
         this.props.getTransactionRemind(objParams);
     }
@@ -135,7 +131,7 @@ class TransactionRemind extends Component {
 
     searchRemind(){
         var objParams = {
-            status : 0
+            status : this.state.valueStatus.id
         }
         if(this.state.valueRemind.id == "0"){
             objParams.number_payment_receive = this.props.user.data.number_payment;
@@ -146,11 +142,11 @@ class TransactionRemind extends Component {
     }
 
     toggle() {
-        var row = {gender : 0};
+        var row = {number_payment: this.props.user.data.number_payment};
         this.setState({
             modal: !this.state.modal,
-            title: "Thêm nhắc nợ",
-            dataChoose: row,
+            title: "Tạo nhắc nợ",
+            dataChoose: row
         });
     }
     onClickUpdateData(cell, row, rowIndex) {
@@ -161,42 +157,44 @@ class TransactionRemind extends Component {
             title: "Cập nhật nhắc nợ"
         });
     }
-    onClickDeleteData(cell, row, rowIndex) {
+    onClickCancelData(cell, row, rowIndex) {
         // console.log('dataChoose: ', row.id);
-        confirmAlert({
-            title: 'Thông báo',
-            message: 'Bạn muốn huỷ nhắc nợ?',
-            buttons: [
-                {
-                    label: 'No'
-                },
-                {
-                    label: 'Yes',
-                    onClick: () => this.props.deleteCustomer({ id: row.id })
-                }
-            ]
-        });
-
+        if(row.number_payment === this.props.user.data.number_payment){
+            confirmAlert({
+                title: 'Thông báo',
+                message: 'Bạn muốn huỷ nhắc nợ?',
+                buttons: [
+                    {
+                        label: 'No'
+                    },
+                    {
+                        label: 'Yes',
+                        onClick: () => this.props.updateTransactionRemind({ transaction_remind_id: row.id, content:row.Content })
+                        
+                    }
+                ]
+            });
+        }
     }
 
     cellButton(cell, row, enumObject, rowIndex) {
         return (
             <ButtonGroup>
-                <Button color="primary" size="sm" onClick={() =>
+                {/* <Button color="primary" size="sm" onClick={() =>
                     this.onClickUpdateData(cell, row, rowIndex)}>
                     <i className="icon-note no-mr"></i>
-                </Button>
-                {/* <Button color="danger" size="sm" onClick={() =>
-                    this.onClickDeleteData(cell, row, rowIndex)}>
-                    <i className="icon-trash no-mr"></i>
                 </Button> */}
+                <Button color="danger" size="sm" onClick={() =>
+                    this.onClickCancelData(cell, row, rowIndex)}>
+                    <i className="icon-note no-mr"></i>
+                </Button>
             </ButtonGroup>
         )
     }
     render() {
         return (
             <div className="TransactionRemind_page">
-                <ModalCustomer
+                <ModalTransactionRemind
                     toggle={this.toggle}
                     modal={this.state.modal}
                     dataChoose={this.state.dataChoose}
