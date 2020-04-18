@@ -3,8 +3,7 @@ import * as helper from '../../modules/Helper.js'
 
 //lấy lịch sử giao dịch theo STK, Mã khách hàng
 export function getHistoryBySTK(params, callback) {
-    console.log("getCustomerByID params: ", params)
-    debugger
+    // console.log("getCustomerByID params: ", params)
     axios.get(helper.getApiUrl('history') + params.number_payment).then(function (response) {
         // console.log("response",response)
         if (response.status === 201) {

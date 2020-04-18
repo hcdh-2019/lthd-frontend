@@ -62,7 +62,7 @@ class ViewHistoryByCustomer extends Component {
     }
 
     componentDidMount() {
-        this.props.getHistoryBySTK({ number_payment: "2"});
+        this.props.getHistoryBySTK({ number_payment: this.props.user.data.customer_id});
     }
 
     render() {
@@ -95,7 +95,7 @@ class ViewHistoryByCustomer extends Component {
     }
 }
 ViewHistoryByCustomer = connect((state) => {
-    return { ...state.History }
+    return { ...state.History, ...state.SignIn }
 }, { ...actHistory })(ViewHistoryByCustomer);
 export default ViewHistoryByCustomer;
 
