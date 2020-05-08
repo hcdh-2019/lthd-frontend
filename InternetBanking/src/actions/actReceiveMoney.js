@@ -28,7 +28,7 @@ export function getCustomerBySTK(values) {
         apiReceiveMoney.getCustomerBySTK(values, function (err, response) {
             //  console.log("getCustomer", response)
             if (response) {
-                dispatch(_getCustomerBySTK(response));
+                dispatch(_getCustomerBySTK(response, values.isKey));
             }
             else
             {
@@ -39,9 +39,10 @@ export function getCustomerBySTK(values) {
 }
 
 
-export function _getCustomerBySTK(payload) {
+export function _getCustomerBySTK(payload, isKey) {
     return {
         type: type.GET_CUSTOMERBYSTK,
-        payload
+        payload : isKey == "receive" ? payload : {},
+        payload_his : isKey == "history" ? payload : {}
     }
 }

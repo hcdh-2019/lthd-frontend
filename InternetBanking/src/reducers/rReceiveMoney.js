@@ -7,7 +7,8 @@ const ReceiveMoney = (state = defaultState, action) => {
         case type.GET_CUSTOMERBYSTK:
             return {
                 ...state,
-                customer_one: action.payload
+                customer_one: action.payload,
+                customer_one_his: action.payload_his
             };
         default:
             return {

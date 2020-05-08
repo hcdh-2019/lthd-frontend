@@ -52,10 +52,15 @@ class ReceiveMoneyBankAccount extends Component {
         this.checkCustomer = this.checkCustomer.bind(this);
         this.onClickReceiveMoney = this.onClickReceiveMoney.bind(this);
     }
+
+    // componentDidMount() {
+    //     this.props.getCustomerBySTK({ number_payment: "0" });
+    // }
+
     checkCustomer() {
         var numberPayment = this.refNumberPayment.current.value;
         var userName = this.refUserName.current.value;
-        this.props.getCustomerBySTK({ number_payment: numberPayment });
+        this.props.getCustomerBySTK({ number_payment: numberPayment, isKey: "receive" });
     }
     onClickReceiveMoney(formSubmitEvent) {
         formSubmitEvent.preventDefault();

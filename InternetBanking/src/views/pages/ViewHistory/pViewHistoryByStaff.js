@@ -76,7 +76,7 @@ class ViewHistoryByStaff extends Component {
     checkCustomer() {
         var numberPayment = this.refNumberPayment.current.value;
         var userName = this.refUserName.current.value;
-        this.props.getCustomerBySTK({ number_payment: numberPayment });
+        this.props.getCustomerBySTK({ number_payment: numberPayment, isKey: "history" });
     }
     searchHistory(){
         debugger
@@ -106,14 +106,14 @@ class ViewHistoryByStaff extends Component {
                                     <Col xs="4">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Số tài khoản</Label>
-                                            <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} defaultValue={this.props.customer_one ? this.props.customer_one.number_payment : ""} />
-                                            <input type="hidden" className="form-control" placeholder="Số tài khoản" ref={this.refCustomerID} defaultValue={this.props.customer_one ? this.props.customer_one.customer_id : ""} />
+                                            <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} defaultValue={this.props.customer_one_his ? this.props.customer_one_his.number_payment : ""} />
+                                            <input type="hidden" className="form-control" placeholder="Số tài khoản" ref={this.refCustomerID} defaultValue={this.props.customer_one_his ? this.props.customer_one_his.customer_id : ""} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="4">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Tên đăng nhập</Label>
-                                            <input type="text" className="form-control" disabled placeholder="Tên đăng nhập" ref={this.refUserName} defaultValue={this.props.customer_one ? this.props.customer_one.username : ""}/>
+                                            <input type="text" className="form-control" disabled placeholder="Tên đăng nhập" ref={this.refUserName} defaultValue={this.props.customer_one_his ? this.props.customer_one_his.username : ""}/>
                                         </FormGroup>
                                     </Col>
                                     <Col xs="4">
@@ -126,19 +126,19 @@ class ViewHistoryByStaff extends Component {
                                     <Col xs="4">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Tên khách hàng</Label>
-                                            <Input type="text" placeholder="Tên khách hàng" disabled defaultValue={this.props.customer_one ? this.props.customer_one.name : ""} />
+                                            <Input type="text" placeholder="Tên khách hàng" disabled defaultValue={this.props.customer_one_his ? this.props.customer_one_his.name : ""} />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="4">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Email</Label>
-                                            <Input type="text" placeholder="Email" disabled defaultValue={this.props.customer_one ? this.props.customer_one.email : ""}/>
+                                            <Input type="text" placeholder="Email" disabled defaultValue={this.props.customer_one_his ? this.props.customer_one_his.email : ""}/>
                                         </FormGroup>
                                     </Col>
                                     <Col xs="4">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Số điện thoại</Label>
-                                            <Input type="text" placeholder="Số điện thoại" disabled defaultValue={this.props.customer_one ? this.props.customer_one.phone : ""}/>
+                                            <Input type="text" placeholder="Số điện thoại" disabled defaultValue={this.props.customer_one_his ? this.props.customer_one_his.phone : ""}/>
                                         </FormGroup>
                                     </Col>
                                     
