@@ -26,13 +26,14 @@ export function receiveMoney(values) {
 export function getCustomerBySTK(values) {
     return (dispatch, getState) => {
         apiReceiveMoney.getCustomerBySTK(values, function (err, response) {
-            //  console.log("getCustomer", response)
+             console.log("getCustomer1", response)
             if (response) {
                 dispatch(_getCustomerBySTK(response, values.isKey));
             }
             else
             {
                 toast.error("Khách hàng không tồn tại!");
+                dispatch(_getCustomerBySTK({}, values.isKey));
             }
         })
     }
