@@ -186,7 +186,7 @@ class TransactionRemind extends Component {
                 </Button> */}
                 <Button color="danger" size="sm" onClick={() =>
                     this.onClickCancelData(cell, row, rowIndex)}>
-                    <i className="icon-note no-mr"></i>
+                    <i className="icon-close no-mr"></i>
                 </Button>
             </ButtonGroup>
         )
