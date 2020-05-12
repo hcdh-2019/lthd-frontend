@@ -169,7 +169,7 @@ class TransactionRemind extends Component {
                     },
                     {
                         label: 'Yes',
-                        onClick: () => this.props.updateTransactionRemind({ transaction_remind_id: row.id, content:row.Content })
+                        onClick: () => this.props.updateTransactionRemind({ transaction_remind_id: row.id, content:row.Content, number_payment: this.props.user.data.number_payment })
                         
                     }
                 ]

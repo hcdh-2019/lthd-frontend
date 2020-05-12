@@ -47,6 +47,7 @@ export function updateTransactionRemind(values) {
             if (response) {
                 if (response.status === "success") {
                     toast.success("Huỷ nhắc nợ thành công!");
+                    dispatch(getTransactionRemind({number_payment : values.number_payment, status : 0}));
                 } else {
                     toast.error("Huỷ nhắc nợ thất bại!");
                 }
