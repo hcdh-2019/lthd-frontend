@@ -30,6 +30,8 @@ import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import { actCustomer } from "../../actions"
 import { connect } from "react-redux";
 import * as helper from '../../modules/Helper';
+import Select from 'react-select';
+import '../../../scss/vendors/react-select/react-select.scss';
 import { ToastContainer, toast } from 'react-toastify';
 
 class ModalCustomer extends React.Component {
@@ -39,7 +41,24 @@ class ModalCustomer extends React.Component {
         this.state = {
             modal: false,
             dataChoose: {},
-            gender: 0
+            gender: 0,
+            valueMethod: {
+                id: "0",
+                label: "Người gửi trả phí"
+            },
+            selectMethod: [
+                {
+                    id: "0",
+                    label: "Người gửi trả phí"
+                },
+                {
+                    id: "1",
+                    label: "Người nhận trả phí"
+                }
+            ],
+            disabled: false,
+            required: true,
+            isMulti: true
         };
         this.refName = React.createRef();
         this.refUserName = React.createRef();
@@ -52,6 +71,7 @@ class ModalCustomer extends React.Component {
 
         this.SaveCustomer = this.SaveCustomer.bind(this);
         this.handleGenderChange = this.handleGenderChange.bind(this);
+        this.onChangeMethod = this.onChangeMethod.bind(this);
 
     }
     SaveCustomer(formSubmitEvent) {
@@ -75,6 +95,10 @@ class ModalCustomer extends React.Component {
             gender: 0
         });
         this.props.toggle();
+    }
+
+    onChangeMethod(value) {
+        this.setState({ valueMethod: value });
     }
 
     handleGenderChange(changeEvent) {
@@ -185,6 +209,29 @@ class ModalCustomer extends React.Component {
                                 <Col xs="12">
                                     <FormGroup>
                                         <Row>
+                                            <Col xs="3">
+                                                <Label htmlFor="role">Quyền</Label>
+                                            </Col>
+                                            <Col xs="9">
+                                                <Select
+                                                    placeholder="Chọn quyền"
+                                                    // name="form-field-name2"
+                                                    value={this.state.valueMethod}
+                                                    options={this.state.selectMethod}
+                                                    onChange={this.onChangeMethod}
+                                                    disabled={this.state.disabled}
+                                                    required={this.state.required}
+                                                    isMulti={this.state.isMulti}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs="12">
+                                    <FormGroup>
+                                        <Row>
                                             <Col md="3">
                                                 <Label htmlFor="gender">Giới tính</Label>
                                             </Col>
@@ -192,7 +239,7 @@ class ModalCustomer extends React.Component {
                                                 <FormGroup check inline>
                                                     <input className="form-check-input" type="radio"
                                                         id="genderNam" name="gender" value="0"
-                                                        defaultChecked={this.props.dataChoose? this.props.dataChoose.gender === 0 : this.state.gender === 0}
+                                                        defaultChecked={this.props.dataChoose ? this.props.dataChoose.gender === 0 : this.state.gender === 0}
                                                         // checked={this.state.gender === 0}
                                                         onChange={this.handleGenderChange} />
                                                     <Label className="form-check-label" check htmlFor="genderNam">Nam</Label>
@@ -200,7 +247,7 @@ class ModalCustomer extends React.Component {
                                                 <FormGroup check inline>
                                                     <input className="form-check-input" type="radio"
                                                         id="genderNu" name="gender" value="1"
-                                                        defaultChecked={this.props.dataChoose?this.props.dataChoose.gender === 1 : this.state.gender === 1}
+                                                        defaultChecked={this.props.dataChoose ? this.props.dataChoose.gender === 1 : this.state.gender === 1}
                                                         // checked={this.state.gender === 1}
                                                         onChange={this.handleGenderChange} />
                                                     <Label className="form-check-label" check htmlFor="genderNu">Nữ</Label>
@@ -210,7 +257,7 @@ class ModalCustomer extends React.Component {
                                     </FormGroup>
                                 </Col>
                             </Row>
-
+                            
                         </ModalBody>
                         <ModalFooter>
                             <Button type="submit" color="primary" id="btnSave"><i className="fa fa-floppy-o"></i> Lưu</Button>
