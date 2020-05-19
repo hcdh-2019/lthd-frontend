@@ -32,6 +32,7 @@ import { connect } from "react-redux";
 import * as helper from '../../modules/Helper';
 import Select from 'react-select';
 import '../../../scss/vendors/react-select/react-select.scss';
+import "react-select/dist/react-select.css";
 import { ToastContainer, toast } from 'react-toastify';
 
 class ModalCustomer extends React.Component {
@@ -42,23 +43,12 @@ class ModalCustomer extends React.Component {
             modal: false,
             dataChoose: {},
             gender: 0,
-            valueMethod: {
-                id: "0",
-                label: "Người gửi trả phí"
-            },
-            selectMethod: [
-                {
-                    id: "0",
-                    label: "Người gửi trả phí"
-                },
-                {
-                    id: "1",
-                    label: "Người nhận trả phí"
-                }
-            ],
-            disabled: false,
-            required: true,
-            isMulti: true
+            multiValue: [],
+            filterOptions: [
+                { value: "QL", label: "Quản lý" },
+                { value: "NV", label: "Nhân viên" },
+                { value: "Admin", label: "Admin" }
+            ]
         };
         this.refName = React.createRef();
         this.refUserName = React.createRef();
@@ -71,7 +61,7 @@ class ModalCustomer extends React.Component {
 
         this.SaveCustomer = this.SaveCustomer.bind(this);
         this.handleGenderChange = this.handleGenderChange.bind(this);
-        this.onChangeMethod = this.onChangeMethod.bind(this);
+        this.handleMultiChange = this.handleMultiChange.bind(this);
 
     }
     SaveCustomer(formSubmitEvent) {
@@ -97,9 +87,13 @@ class ModalCustomer extends React.Component {
         this.props.toggle();
     }
 
-    onChangeMethod(value) {
-        this.setState({ valueMethod: value });
-    }
+    handleMultiChange(option) {
+        this.setState(state => {
+          return {
+            multiValue: option
+          };
+        });
+      }
 
     handleGenderChange(changeEvent) {
         this.setState({
@@ -214,14 +208,12 @@ class ModalCustomer extends React.Component {
                                             </Col>
                                             <Col xs="9">
                                                 <Select
-                                                    placeholder="Chọn quyền"
-                                                    // name="form-field-name2"
-                                                    value={this.state.valueMethod}
-                                                    options={this.state.selectMethod}
-                                                    onChange={this.onChangeMethod}
-                                                    disabled={this.state.disabled}
-                                                    required={this.state.required}
-                                                    isMulti={this.state.isMulti}
+                                                name="role"
+                                                placeholder="Chọn quyền"
+                                                value={this.state.multiValue}
+                                                options={this.state.filterOptions}
+                                                onChange={this.handleMultiChange}
+                                                multi
                                                 />
                                             </Col>
                                         </Row>
