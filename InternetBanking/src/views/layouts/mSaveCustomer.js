@@ -45,9 +45,10 @@ class ModalCustomer extends React.Component {
             gender: 0,
             multiValue: [],
             filterOptions: [
-                { value: "QL", label: "Quản lý" },
-                { value: "NV", label: "Nhân viên" },
-                { value: "Admin", label: "Admin" }
+                { value: "customer", label: "Khách hàng" },
+                { value: "employee", label: "Nhân viên" },
+                { value: "admin", label: "Admin" }
+                // any: true
             ]
         };
         this.refName = React.createRef();
@@ -73,11 +74,22 @@ class ModalCustomer extends React.Component {
         var phone = this.refPhone.current.value;
         var email = this.refEmail.current.value;
         var gender = this.state.gender;
-
+        var roleCus = {any:true};
+        this.state.multiValue.forEach((e, index)=>{
+            if(e.value === "customer"){
+                roleCus.customer = true;
+            }
+            if(e.value === "employee"){
+                roleCus.employee = true;
+            }
+            if(e.value === "admin"){
+                roleCus.admin = true;
+            }
+        });
         if (this.props.dataChoose && this.props.dataChoose.id) {
-            this.props.updateCustomer({ id: this.props.dataChoose.id, customername: name, username: username, nickname: "", address: address, phone: phone, email: email, gender: gender }) //, nickname: nickname
+            this.props.updateCustomer({ id: this.props.dataChoose.id, customername: name, username: username, nickname: "", address: address, phone: phone, email: email, gender: gender, role: roleCus }) //, nickname: nickname
         } else {
-            this.props.createCustomer({ customername: name, username: username, nickname: "", address: address, phone: phone, email: email, gender: gender })
+            this.props.createCustomer({ customername: name, username: username, nickname: "", address: address, phone: phone, email: email, gender: gender, role: roleCus})
         }
         this.setState({
             modal: false,
