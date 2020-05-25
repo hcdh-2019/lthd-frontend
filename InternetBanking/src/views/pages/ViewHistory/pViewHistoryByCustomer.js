@@ -35,6 +35,7 @@ import { connect } from "react-redux";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { toast, ToastContainer } from 'react-toastify';
+import moment from 'moment-timezone';
 
 
 class ViewHistoryByCustomer extends Component {
@@ -62,6 +63,9 @@ class ViewHistoryByCustomer extends Component {
     }
 
     componentDidMount() {
+        var toDate = moment().format("YYYY-MM-DD");
+        var fromDate = moment().subtract(30, "days").format("YYYY-MM-DD");
+        debugger
         this.props.getHistoryBySTK({ number_payment: this.props.user.data.customer_id});
     }
 

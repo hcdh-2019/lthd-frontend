@@ -35,6 +35,7 @@ import { connect } from "react-redux";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { toast, ToastContainer } from 'react-toastify';
+import moment from 'moment-timezone';
 
 
 class ViewHistoryByStaff extends Component {
@@ -64,6 +65,8 @@ class ViewHistoryByStaff extends Component {
         this.refNumberPayment = React.createRef();
         this.refUserName = React.createRef();
         this.refCustomerID = React.createRef();
+        this.refFromDate = React.createRef();
+        this.refToDate = React.createRef();
 
         this.checkCustomer = this.checkCustomer.bind(this);
         this.searchHistory = this.searchHistory.bind(this);
@@ -87,6 +90,9 @@ class ViewHistoryByStaff extends Component {
         var numberPayment = this.refNumberPayment.current.value;
         var userName = this.refUserName.current.value;
         var customerID = this.refCustomerID.current.value;
+        var fromDate = this.refFromDate.current.value;
+        var toDate = this.refToDate.current.value;
+        debugger
         // if (numberPayment !== "") {
             if (customerID !== "") {
                 this.props.getHistoryBySTK({ number_payment: customerID });
@@ -148,6 +154,20 @@ class ViewHistoryByStaff extends Component {
                                         </FormGroup>
                                     </Col>
 
+                                </Row>
+                                <Row>
+                                    <Col xs="6">
+                                        <FormGroup style={{ marginBottom: 0 }}>
+                                            <Label htmlFor="name">Từ ngày</Label>
+                                            <input type='date' ref={this.refFromDate} className="form-control" />
+                                        </FormGroup>
+                                    </Col>
+                                    <Col xs="6">
+                                        <FormGroup style={{ marginBottom: 0 }}>
+                                            <Label htmlFor="name">Đến ngày</Label>
+                                            <input type='date' ref={this.refToDate} className="form-control" />
+                                        </FormGroup>
+                                    </Col>
                                 </Row>
                             </CardBody>
                             <CardFooter>
