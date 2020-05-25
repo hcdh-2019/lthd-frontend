@@ -44,7 +44,6 @@ export function deleteCustomer(params, callback) {
 }
 //lấy danh sách khách hàng
 export function getCustomer(params, callback) {
-    debugger
     var api = '';
     if (params) {
         api = helper.getApiUrl('customer') + '?' + (params.phone ? ('phone=' + params.phone) : '') + (params.customer_name ? ('&customer_name=' + params.customer_name) : '');
