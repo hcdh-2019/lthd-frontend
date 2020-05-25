@@ -132,7 +132,7 @@ module.exports = {
         'ViewHistoryByStaff': {
             name: "ViewHistoryByStaff",
             url: '/view-history',
-            role: 'customer',
+            role: 'employee',
             permission: true,
             title: "Lịch sử giao dịch",
             breadcrumb: "Lịch sử giao dịch"
