@@ -67,10 +67,14 @@ class CustomerManagement extends Component {
             title: ""
         };
 
+        this.refPhone = React.createRef();
+        this.refName = React.createRef();
+
         this.toggle = this.toggle.bind(this);
         this.cellButton = this.cellButton.bind(this);
         this.onClickUpdateData = this.onClickUpdateData.bind(this);
         this.onClickDeleteData = this.onClickDeleteData.bind(this);
+        this.searchCustomer = this.searchCustomer.bind(this);
     }
     componentDidMount() {
         this.props.getCustomer();
@@ -110,6 +114,21 @@ class CustomerManagement extends Component {
 
     }
 
+    searchCustomer(){
+        var phone = this.refPhone.current.value;
+        var name = this.refName.current.value;
+        var objParams = {}
+        if(phone.trim()!== "")
+        {
+            objParams.phone= phone;
+        }
+        if(name.trim()!== "")
+        {
+            objParams.customer_name= name;
+        }
+        this.props.getCustomer(objParams);
+    }
+
     cellButton(cell, row, enumObject, rowIndex) {
         return (
             <ButtonGroup>
@@ -141,20 +160,22 @@ class CustomerManagement extends Component {
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Số điện thoại</Label>
-                                            <Input type="text" placeholder="Số điện thoại" />
+                                            {/* <Input type="text" placeholder="Số điện thoại" /> */}
+                                            <input type="text" maxLength="11" ref={this.refPhone} id="phone" className="form-control" placeholder="Số điện thoại" />
                                         </FormGroup>
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
                                             <Label htmlFor="name">Tên khách hàng</Label>
-                                            <Input type="text" placeholder="Tên khách hàng" />
+                                            {/* <Input type="text" placeholder="Tên khách hàng" /> */}
+                                            <input type="text" maxLength="191" ref={this.refName} id="name" className="form-control" placeholder="Tên khách hàng" />
                                         </FormGroup>
                                     </Col>
                                 </Row>
                             </CardBody>
                             <CardFooter>
                                 <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
-                                    <Button type="submit" color="primary"><i className="icon-magnifier"></i> Tìm Kiếm</Button>
+                                    <Button type="submit" color="primary" onClick={this.searchCustomer}><i className="icon-magnifier"></i> Tìm Kiếm</Button>
                                     <Button type="button" color="warning" onClick={this.toggle}><i className="icon-plus"></i> Thêm Mới</Button>
                                 </FormGroup>
                             </CardFooter>

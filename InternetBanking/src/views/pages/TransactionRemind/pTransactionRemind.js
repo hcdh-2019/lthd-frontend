@@ -207,7 +207,7 @@ class TransactionRemind extends Component {
                                 <Row>
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Số tài khoản</Label>
+                                            <Label htmlFor="name">Loại nhắc nợ</Label>
                                             <Select
                                                 placeholder="Hình thức nhắc nợ"
                                                 name="form-field-name2"
@@ -220,7 +220,7 @@ class TransactionRemind extends Component {
                                     </Col>
                                     <Col xs="6">
                                         <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Tên khách hàng</Label>
+                                            <Label htmlFor="name">Trạng thái</Label>
                                             <Select
                                                 placeholder="Trạng thái"
                                                 name="form-field-name2"

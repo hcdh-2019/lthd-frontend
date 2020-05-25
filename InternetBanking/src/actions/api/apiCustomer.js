@@ -44,7 +44,15 @@ export function deleteCustomer(params, callback) {
 }
 //lấy danh sách khách hàng
 export function getCustomer(params, callback) {
-    axios.get(helper.getApiUrl('customer'), params).then(function (response) {
+    debugger
+    var api = '';
+    if (params) {
+        api = helper.getApiUrl('customer') + '?' + (params.phone ? ('phone=' + params.phone) : '') + (params.customer_name ? ('&customer_name=' + params.customer_name) : '');
+    } else {
+        api = helper.getApiUrl('customer')
+    }
+
+    axios.get(api, params).then(function (response) {
         // console.log("response",response)
         if (response.status === 200) {
             callback(null, response.data.data)
