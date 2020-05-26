@@ -89,7 +89,20 @@ class CustomerManagement extends Component {
         });
     }
     onClickUpdateData(cell, row, rowIndex) {
-        console.log('dataChoose: ', row);
+        // console.log('dataChoose: ', row);
+        // row.role = {customer : true, employee: true, any: true};
+        var roleCus = row.role; // !== "" ? JSON.parse(row.role): [];
+        var temp = [];
+        if(roleCus.customer){
+            temp.push({ value: "customer", label: "Khách hàng" });
+        }
+        if(roleCus.employee){
+            temp.push({ value: "employee", label: "Nhân viên" });
+        }
+        if(roleCus.admin){
+            temp.push({ value: "admin", label: "Admin" });
+        }
+        row.role = temp;
         this.setState({
             modal: !this.state.modal,
             dataChoose: row,
@@ -186,13 +199,14 @@ class CustomerManagement extends Component {
                             </CardHeader>
                             <CardBody>
                                 <BootstrapTable data={this.props.customer ? this.props.customer : []} version="4" bordered={false} striped hover pagination search options={this.options}>
-                                    <TableHeaderColumn isKey dataField="id" width='80px' dataSort dataAlign='center'>Mã KH</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="number_payment" width='150px' dataSort dataAlign='center'>Số tài khoản</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="name" width='200px' dataSort dataAlign='center'>Họ tên</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="address" width='200px' dataAlign='center'>Địa chỉ</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="phone" dataSort dataAlign='center'>Số điện thoại</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="email" width='200px' dataSort dataAlign='center'>Email</TableHeaderColumn>
-                                    <TableHeaderColumn dataField="gender" dataFormat={enumFormatter} formatExtraData={isGender} dataSort dataAlign='center'>Giới tính</TableHeaderColumn>
+                                    <TableHeaderColumn isKey dataField="id" width='50px' dataSort dataAlign='center'>Mã KH</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="number_payment" width='100px' dataSort dataAlign='center'>Số tài khoản</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="name" width='150px' dataSort dataAlign='center'>Họ tên</TableHeaderColumn>
+                                    {/* <TableHeaderColumn dataField="address" width='200px' dataAlign='center'>Địa chỉ</TableHeaderColumn> */}
+                                    <TableHeaderColumn dataField="phone" width='100px' dataSort dataAlign='center'>Số điện thoại</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="email" width='150px' dataSort dataAlign='center'>Email</TableHeaderColumn>
+                                    {/* <TableHeaderColumn dataField="gender" dataFormat={enumFormatter} formatExtraData={isGender} dataSort dataAlign='center'>Giới tính</TableHeaderColumn> */}
+                                    <TableHeaderColumn dataField="strRole" width='150px' dataSort dataAlign='center'>Quyền</TableHeaderColumn>
                                     <TableHeaderColumn dataField='button' dataFormat={this.cellButton} width='80px' dataAlign='center'>Control</TableHeaderColumn>
                                 </BootstrapTable>
                             </CardBody>

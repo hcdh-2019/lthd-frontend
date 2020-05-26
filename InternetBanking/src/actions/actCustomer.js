@@ -63,8 +63,36 @@ export function deleteCustomer(values) {
 export function getCustomer(values) {
     return (dispatch, getState) => {
         apiCustomer.getCustomer(values, function (err, response) {
-            //  console.log("getCustomer", response)
+            console.log("getCustomer", response)
             if (response) {
+                response.forEach((e, index)=>{
+                    var temp = JSON.parse(e.role);
+                    e.role = temp;
+                    var roleCus = '';
+                    if(temp.customer){
+                        if(roleCus == ''){
+                            roleCus += 'Khách hàng';
+                        }else{
+                            roleCus += ', Khách hàng';
+                        }
+                    }
+                    if(temp.employee){
+                        if(roleCus == ''){
+                            roleCus += 'Nhân viên';
+                        }else{
+                            roleCus += ', Nhân viên';
+                        }
+                    }
+                    if(temp.admin){
+                        if(roleCus == ''){
+                            roleCus += 'Admin';
+                        }else{
+                            roleCus += ', Admin'
+                        }
+                        
+                    }
+                    e.strRole = roleCus;
+                });
                 dispatch(_getCustomer(response));
             }
         })

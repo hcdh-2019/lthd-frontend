@@ -52,7 +52,7 @@ export function getCustomer(params, callback) {
     }
 
     axios.get(api, params).then(function (response) {
-        // console.log("response",response)
+        // console.log("response_cus",response)
         if (response.status === 200) {
             callback(null, response.data.data)
         }

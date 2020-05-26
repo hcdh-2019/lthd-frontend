@@ -75,6 +75,7 @@ class ModalCustomer extends React.Component {
         var email = this.refEmail.current.value;
         var gender = this.state.gender;
         var roleCus = {any:true};
+        // console.log("zxc", this.state.multiValue);
         this.state.multiValue.forEach((e, index)=>{
             if(e.value === "customer"){
                 roleCus.customer = true;
@@ -222,7 +223,10 @@ class ModalCustomer extends React.Component {
                                                 <Select
                                                 name="role"
                                                 placeholder="Chọn quyền"
-                                                value={this.state.multiValue}
+                                                // value={this.state.multiValue}
+                                                // value={this.state.multiValue == [] ? (this.props.dataChoose ? this.props.dataChoose.role : []) : this.state.multiValue}
+                                                value={(this.state.multiValue[0]) ? this.state.multiValue : (this.props.dataChoose ? this.props.dataChoose.role : [])}
+                                                // defaultValue={this.props.dataChoose ? this.props.dataChoose.role : []}
                                                 options={this.state.filterOptions}
                                                 onChange={this.handleMultiChange}
                                                 multi
