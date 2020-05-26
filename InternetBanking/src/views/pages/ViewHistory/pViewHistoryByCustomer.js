@@ -62,10 +62,17 @@ class ViewHistoryByCustomer extends Component {
         };
     }
 
+    dateFormatter(cell) {
+        if (!cell) {
+            return "";
+        }
+        return `${moment(cell).format("DD/MM/YYYY")}`;
+    }
+
     componentDidMount() {
         var toDate = moment().format("YYYY-MM-DD");
         var fromDate = moment().subtract(30, "days").format("YYYY-MM-DD");
-        this.props.getHistoryBySTK({ number_payment: this.props.user.data.customer_id, from: fromDate, to: toDate});
+        this.props.getHistoryBySTK({ number_payment: this.props.user.data.customer_id, from: fromDate, to: toDate });
     }
 
     render() {
@@ -85,6 +92,7 @@ class ViewHistoryByCustomer extends Component {
                                 <BootstrapTable data={this.props.history111 ? this.props.history111 : []} version="4" bordered={false} striped hover pagination search options={this.options}>
                                     <TableHeaderColumn isKey dataField="number_account" dataSort dataAlign='center'>Số tài khoản</TableHeaderColumn>
                                     <TableHeaderColumn dataField="message" dataSort dataAlign='center'>Loại giao dịch</TableHeaderColumn>
+                                    <TableHeaderColumn dataField="created_date" dataSort dataAlign='center' dataFormat={this.dateFormatter}>Ngày giao dịch</TableHeaderColumn>
                                     <TableHeaderColumn dataField="sender" dataSort dataAlign='center'>Người gửi</TableHeaderColumn>
                                     <TableHeaderColumn dataField="received" dataSort dataAlign='center'>Người nhận</TableHeaderColumn>
                                     <TableHeaderColumn dataField="amount" dataSort dataAlign='center'>Số tiền</TableHeaderColumn>
@@ -98,7 +106,7 @@ class ViewHistoryByCustomer extends Component {
     }
 }
 ViewHistoryByCustomer = connect((state) => {
-    console.log("state ViewHistoryByCustomer",state);
+    console.log("state ViewHistoryByCustomer", state);
     return { ...state.History, ...state.SignIn }
 }, { ...actHistory })(ViewHistoryByCustomer);
 export default ViewHistoryByCustomer;
