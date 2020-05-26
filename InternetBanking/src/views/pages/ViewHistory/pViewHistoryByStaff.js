@@ -70,6 +70,7 @@ class ViewHistoryByStaff extends Component {
 
         this.checkCustomer = this.checkCustomer.bind(this);
         this.searchHistory = this.searchHistory.bind(this);
+        this.ischeckDate = this.ischeckDate.bind(this);
     }
 
     componentDidMount() {
@@ -81,7 +82,7 @@ class ViewHistoryByStaff extends Component {
         var userName = this.refUserName.current.value;
         if (numberPayment !== "") {
             this.props.getCustomerBySTK({ number_payment: numberPayment, isKey: "history" });
-        }else{
+        } else {
             toast.warning("Chưa có thông tin khách hàng!");
         }
     }
@@ -92,14 +93,26 @@ class ViewHistoryByStaff extends Component {
         var customerID = this.refCustomerID.current.value;
         var fromDate = this.refFromDate.current.value;
         var toDate = this.refToDate.current.value;
-        debugger
         // if (numberPayment !== "") {
-            if (customerID !== "") {
-                this.props.getHistoryBySTK({ number_payment: customerID });
+        if (customerID !== "") {
+            if (!this.ischeckDate(fromDate, toDate)) {
+                toast.warning("Kiểm tra lại ngày truy vấn!");
             } else {
-                toast.warning("Chưa có thông tin khách hàng!");
+                this.props.getHistoryBySTK({ number_payment: customerID, from: moment(fromDate).format("YYYY-MM-DD"), to: moment(toDate).format("YYYY-MM-DD") });
             }
+        } else {
+            toast.warning("Chưa có thông tin khách hàng!");
+        }
         // }
+    }
+    ischeckDate(fromDate, toDate) {
+        if (fromDate == '' || toDate == '') {
+            return false;
+        }
+        if (moment(fromDate) > moment(toDate)) {
+            return false;
+        }
+        return true;
     }
 
     render() {
@@ -112,70 +125,72 @@ class ViewHistoryByStaff extends Component {
                 <Row>
                     <Col xs="12" sm="12">
                         <Card className="search_box">
-                            <CardBody>
-                                <Row>
+                            {/* <Form className="was-validated" onSubmit={this.searchHistory}> */}
+                                <CardBody>
+                                    <Row>
 
-                                    <Col xs="4">
-                                        <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Số tài khoản</Label>
-                                            <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} defaultValue={this.props.customer_one_his && this.props.customer_one_his.number_payment ? this.props.customer_one_his.number_payment : ""} />
-                                            <input type="hidden" className="form-control" placeholder="Số tài khoản" ref={this.refCustomerID} defaultValue={this.props.customer_one_his && this.props.customer_one_his.customer_id ? this.props.customer_one_his.customer_id : ""} />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col xs="4">
-                                        <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Tên đăng nhập</Label>
-                                            <input type="text" className="form-control" disabled placeholder="Tên đăng nhập" ref={this.refUserName} defaultValue={this.props.customer_one_his ? this.props.customer_one_his.username : ""} />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col xs="4">
-                                        <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
-                                            <Button type="button" color="primary" onClick={this.checkCustomer} style={{ marginTop: "28px", float: "left" }}><i className="icon-search"></i>Kiểm tra</Button>
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col xs="4">
-                                        <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Tên khách hàng</Label>
-                                            <Input type="text" placeholder="Tên khách hàng" disabled defaultValue={this.props.customer_one_his ? this.props.customer_one_his.name : ""} />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col xs="4">
-                                        <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Email</Label>
-                                            <Input type="text" placeholder="Email" disabled defaultValue={this.props.customer_one_his ? this.props.customer_one_his.email : ""} />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col xs="4">
-                                        <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Số điện thoại</Label>
-                                            <Input type="text" placeholder="Số điện thoại" disabled defaultValue={this.props.customer_one_his ? this.props.customer_one_his.phone : ""} />
-                                        </FormGroup>
-                                    </Col>
+                                        <Col xs="4">
+                                            <FormGroup style={{ marginBottom: 0 }}>
+                                                <Label htmlFor="name">Số tài khoản</Label>
+                                                <input type="text" className="form-control" placeholder="Số tài khoản" ref={this.refNumberPayment} defaultValue={this.props.customer_one_his && this.props.customer_one_his.number_payment ? this.props.customer_one_his.number_payment : ""} />
+                                                <input type="hidden" className="form-control" placeholder="Số tài khoản" ref={this.refCustomerID} defaultValue={this.props.customer_one_his && this.props.customer_one_his.customer_id ? this.props.customer_one_his.customer_id : ""} />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col xs="4">
+                                            <FormGroup style={{ marginBottom: 0 }}>
+                                                <Label htmlFor="name">Tên đăng nhập</Label>
+                                                <input type="text" className="form-control" disabled placeholder="Tên đăng nhập" ref={this.refUserName} defaultValue={this.props.customer_one_his ? this.props.customer_one_his.username : ""} />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col xs="4">
+                                            <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
+                                                <Button type="button" color="primary" onClick={this.checkCustomer} style={{ marginTop: "28px", float: "left" }}><i className="icon-search"></i>Kiểm tra</Button>
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col xs="4">
+                                            <FormGroup style={{ marginBottom: 0 }}>
+                                                <Label htmlFor="name">Tên khách hàng</Label>
+                                                <Input type="text" placeholder="Tên khách hàng" disabled defaultValue={this.props.customer_one_his ? this.props.customer_one_his.name : ""} />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col xs="4">
+                                            <FormGroup style={{ marginBottom: 0 }}>
+                                                <Label htmlFor="name">Email</Label>
+                                                <Input type="text" placeholder="Email" disabled defaultValue={this.props.customer_one_his ? this.props.customer_one_his.email : ""} />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col xs="4">
+                                            <FormGroup style={{ marginBottom: 0 }}>
+                                                <Label htmlFor="name">Số điện thoại</Label>
+                                                <Input type="text" placeholder="Số điện thoại" disabled defaultValue={this.props.customer_one_his ? this.props.customer_one_his.phone : ""} />
+                                            </FormGroup>
+                                        </Col>
 
-                                </Row>
-                                <Row>
-                                    <Col xs="6">
-                                        <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Từ ngày</Label>
-                                            <input type='date' ref={this.refFromDate} className="form-control" />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col xs="6">
-                                        <FormGroup style={{ marginBottom: 0 }}>
-                                            <Label htmlFor="name">Đến ngày</Label>
-                                            <input type='date' ref={this.refToDate} className="form-control" />
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                            </CardBody>
-                            <CardFooter>
-                                <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
-                                    <Button type="button" color="warning" onClick={this.searchHistory}><i className="icon-plus"></i>Tìm kiếm</Button>
-                                </FormGroup>
-                                {/* onClick={this.searchHistory} */}
-                            </CardFooter>
+                                    </Row>
+                                    <Row>
+                                        <Col xs="6">
+                                            <FormGroup style={{ marginBottom: 0 }}>
+                                                <Label htmlFor="name">Từ ngày</Label>
+                                                <input type='date' ref={this.refFromDate} className="form-control" required />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col xs="6">
+                                            <FormGroup style={{ marginBottom: 0 }}>
+                                                <Label htmlFor="name">Đến ngày</Label>
+                                                <input type='date' ref={this.refToDate} className="form-control" required />
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+                                </CardBody>
+                                <CardFooter>
+                                    <FormGroup style={{ textAlign: "center", marginBottom: 0 }}>
+                                        <Button type="button" color="warning" onClick={this.searchHistory}><i className="icon-plus"></i>Tìm kiếm</Button>
+                                    </FormGroup>
+                                    {/* onClick={this.searchHistory} */}
+                                </CardFooter>
+                            {/* </Form> */}
                         </Card>
                         <Card>
                             <CardHeader>

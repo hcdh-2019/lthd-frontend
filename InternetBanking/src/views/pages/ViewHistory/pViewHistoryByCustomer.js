@@ -65,8 +65,7 @@ class ViewHistoryByCustomer extends Component {
     componentDidMount() {
         var toDate = moment().format("YYYY-MM-DD");
         var fromDate = moment().subtract(30, "days").format("YYYY-MM-DD");
-        debugger
-        this.props.getHistoryBySTK({ number_payment: this.props.user.data.customer_id});
+        this.props.getHistoryBySTK({ number_payment: this.props.user.data.customer_id, from: fromDate, to: toDate});
     }
 
     render() {
