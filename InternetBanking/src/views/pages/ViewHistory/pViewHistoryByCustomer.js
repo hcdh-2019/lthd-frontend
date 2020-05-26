@@ -99,7 +99,7 @@ class ViewHistoryByCustomer extends Component {
     }
 }
 ViewHistoryByCustomer = connect((state) => {
-    console.log("state",state);
+    console.log("state ViewHistoryByCustomer",state);
     return { ...state.History, ...state.SignIn }
 }, { ...actHistory })(ViewHistoryByCustomer);
 export default ViewHistoryByCustomer;
