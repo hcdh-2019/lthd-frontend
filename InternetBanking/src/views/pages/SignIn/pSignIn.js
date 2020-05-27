@@ -18,11 +18,14 @@ class SignIn extends Component {
     this.onChangeCaptcha = this.onChangeCaptcha.bind(this);
     // this.onLoadRecaptcha = this.onLoadRecaptcha.bind(this);
     // this.verifyCallback = this.verifyCallback.bind(this);
+    this.recaptchaRef = React.createRef();
 
     this.state = {
       email: '',
       password: ''
     };
+//     Site key: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+// Secret key: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
   }
 
   // componentDidMount() {
@@ -51,7 +54,7 @@ class SignIn extends Component {
   }
   signIn() {
     // console.log('Email address is ' + this.state.email + ' Password is ' + this.state.password);  
-    if (this.state.email !== "" && this.state.password !== "") {
+    if (this.state.email !== "" && this.state.password !== "" && this.recaptchaRef.getValue()) {
       this.props.onSignIn({
         email: this.state.email,
         password: this.state.password
@@ -99,8 +102,9 @@ class SignIn extends Component {
             <InputGroup className="mb-3" >
               {/* <GoogleReCaptchaProvider reCaptchaKey="6LfFJdwUAAAAAE9H_sYuQQ0nnTmldTJQAdVSjv57" language="en" ></GoogleReCaptchaProvider> */}
               <ReCAPTCHA
-                sitekey="6LdRK-gUAAAAAIBR4J1W8kd1qaojA5RG5PIWMk_E"
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
                 onChange={this.onChangeCaptcha}
+                ref={ (recaptcha) => this.recaptchaRef = recaptcha}
               />
             </InputGroup>
             <Row>
